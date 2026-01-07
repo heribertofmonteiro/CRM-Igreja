@@ -1,6 +1,34 @@
-# Módulo Ministério & Comunicação
+# 📚 Módulo Ministério & Comunicação
 
-Módulo completo de gestão de ministérios, reuniões e comunicação para ChurchCRM.
+## 🎯 Visão Geral
+
+Módulo completo para gestão de ministérios, membros, reuniões e comunicação interna do ChurchCRM.
+
+---
+
+## 🚀 Instalação
+
+### **Pré-requisitos**
+- ChurchCRM instalado e funcionando
+- PHP 8.2+ 
+- MySQL/MariaDB 5.7+
+- Extensões PHP: PDO, JSON, mbstring
+
+### **Passos de Instalação**
+
+1. **Criar Tabelas no Banco**
+   ```bash
+   cd /home/heriberto/projetos/PHP/Laravel/CRM/src
+   mysql -u heriberto -p0631 autonomo < mysql/upgrade/ministerio-module-simple.sql
+   ```
+
+2. **Verificar Instalação**
+   - Acesse: `http://seu-dominio.com/modules/ministerio/`
+   - Se tudo estiver correto, você verá o dashboard
+
+3. **Configurar Permissões**
+   - Ajuste os papéis no arquivo `Security.php`
+   - Defina quem pode acessar cada funcionalidade
 
 ## 📋 Funcionalidades
 

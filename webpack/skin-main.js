@@ -21,8 +21,8 @@ import 'admin-lte/dist/css/adminlte.min.css';
 // Import flag-icons CSS - flags are automatically bundled by webpack
 import 'flag-icons/css/flag-icons.min.css';
 
-// Import Select2 Bootstrap 4 theme (will need updating for Bootstrap 5)
-import '@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css';
+// Import Select2 Bootstrap 5 theme
+import 'select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.min.css';
 
 // Import React DatePicker CSS - required for calendar styling
 import 'react-datepicker/dist/react-datepicker.min.css';
@@ -58,12 +58,12 @@ if (typeof window !== 'undefined') {
     }
 }
 
-// Set global Select2 defaults for Bootstrap 4 theme and language
+// Set global Select2 defaults for Bootstrap 5 theme and language
 // This needs to run after jQuery and Select2 are loaded
 if (typeof window !== 'undefined') {
     window.addEventListener('DOMContentLoaded', function() {
         if (window.$ && window.$.fn && window.$.fn.select2) {
-            window.$.fn.select2.defaults.set("theme", "bootstrap4");
+            window.$.fn.select2.defaults.set("theme", "bootstrap-5");
             
             // Set Select2 language based on current locale
             // The Select2 i18n files are bundled by Grunt into locale-specific JS files

@@ -48,11 +48,11 @@ if (array_key_exists('idefaultFY', $_SESSION)) {
                     <img src="<?= SystemURLs::getRootPath() ?>/api/family/<?= $family->getId() ?>/photo"
                          class="profile-user-img img-circle" style="width: 200px; height: 200px;"/>
                     <div class="position-absolute w-100 text-center" style="bottom: 10px;">
-                        <a id="view-larger-image-btn" href="#" class="btn btn-sm btn-primary mr-1" title="<?= gettext("View Photo") ?>">
+                        <a id="view-larger-image-btn" href="#" class="btn btn-sm btn-primary me-1" title="<?= gettext("View Photo") ?>">
                             <i class="fa-solid fa-search-plus"></i>
                         </a>
                         <?php if (AuthenticationManager::getCurrentUser()->isEditRecordsEnabled()) : ?>
-                            <a id="uploadImageButton" href="#" class="btn btn-sm btn-info mr-1"
+                            <a id="uploadImageButton" href="#" class="btn btn-sm btn-info me-1"
                                title="<?= gettext("Upload Photo") ?>">
                                 <i class="fa-solid fa-camera"></i>
                             </a>

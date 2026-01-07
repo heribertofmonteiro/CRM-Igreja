@@ -11,7 +11,7 @@ use ChurchCRM\Service\SystemService;
 
   <script src="<?= SystemURLs::getRootPath() ?>/skin/external/select2/select2.full.min.js"></script>
 
-  <!-- Bootstrap 3.3.5 -->
+  <!-- Bootstrap 5.3.8 -->
   <script src="<?= SystemURLs::getRootPath() ?>/skin/external/bootstrap/js/bootstrap.min.js"></script>
 
   <!-- AdminLTE App -->

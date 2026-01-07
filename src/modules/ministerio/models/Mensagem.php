@@ -1,13 +1,26 @@
 <?php
+
 /**
- * Model: Mensagem
+ * Model para Mensagens do Ministério
+ * Gerencia operações CRUD e envio de mensagens
  */
-
-require_once __DIR__ . '/Ministerio.php';
-require_once __DIR__ . '/Reuniao.php';
-
 class MensagemModel
 {
+    private static $pdo;
+    
+    public static function initConnection()
+    {
+        if (!self::$pdo) {
+            self::$pdo = new PDO(
+                'mysql:host=localhost;dbname=autonomo;charset=utf8mb4',
+                'heriberto',
+                '0631'
+            );
+            self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        return self::$pdo;
+    }
+
     /**
      * Criar mensagem
      */

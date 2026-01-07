@@ -19,7 +19,7 @@ if (AuthenticationManager::getCurrentUser()->isManageGroupsEnabled()) {
     </div>
     <div class="card-body">
         <form action="#" method="get" class="form-inline">
-            <div class="form-group mr-2">
+            <div class="form-group me-2">
                 <label for="groupName" class="sr-only"><?= gettext('Group Name') ?></label>
                 <input type="text" class="form-control" name="groupName" id="groupName" placeholder="<?= gettext('Enter group name') ?>" required>
             </div>

@@ -192,7 +192,7 @@ use ChurchCRM\dto\SystemURLs;
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-inline float-right">
-                                        <div class="form-group mr-2">
+                                        <div class="form-group me-2">
                                             <select class="form-control form-control-sm" id="filtro-status-mensagem" onchange="aplicarFiltrosMensagens()">
                                                 <option value=""><?= gettext('Todos os Status') ?></option>
                                                 <option value="rascunho"><?= gettext('Rascunho') ?></option>

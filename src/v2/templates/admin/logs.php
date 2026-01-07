@@ -12,8 +12,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </div>
             <div class="card-body">
                 <form class="form-inline">
-                    <div class="form-group mr-3">
-                        <label for="logLevel" class="mr-2"><?= gettext('Log Level:') ?></label>
+                    <div class="form-group me-3">
+                        <label for="logLevel" class="me-2"><?= gettext('Log Level:') ?></label>
                         <select class="form-control" id="logLevel">
                             <option value="100">DEBUG (100)</option>
                             <option value="200" selected>INFO (200)</option>
@@ -28,7 +28,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <button type="button" class="btn btn-primary" id="saveLogLevel">
                         <i class="fa-solid fa-save"></i> <?= gettext('Save Log Level') ?>
                     </button>
-                    <span id="logLevelStatus" class="ml-3"></span>
+                    <span id="logLevelStatus" class="ms-3"></span>
                 </form>
                 <p class="text-muted mt-2 mb-0">
                     <small><i class="fa-solid fa-info-circle"></i> <?= gettext('Lower numbers log more details. Higher numbers log only severe issues. Changes apply to new log entries immediately.') ?></small>

@@ -20,7 +20,7 @@ O projeto combina um **backend PHP monolítico** com um **frontend híbrido**, m
 - **Symfony Components**  
   - Dependency Injection  
   - Translation
-- **Monolog 2.10.0**  
+- **Monolog 2.11.0**  
   Sistema de logging.
 
 ---
@@ -30,12 +30,12 @@ O projeto combina um **backend PHP monolítico** com um **frontend híbrido**, m
   Biblioteca principal para componentes modernos de UI.
 - **TypeScript 5.7.2**  
   Superset do JavaScript com tipagem estática.
-- **Bootstrap 4.6.2**  
+- **Bootstrap 5.3.8**  
   Framework CSS para layout responsivo.
 - **jQuery 3.7.1**  
   Biblioteca JavaScript utilizada em partes legadas.
-- **AdminLTE 3.2.0**  
-  Template administrativo baseado em Bootstrap.
+- **AdminLTE 4.0.0-rc6**  
+  Template administrativo baseado em Bootstrap 5.
 
 ---
 
@@ -113,7 +113,35 @@ O projeto combina um **backend PHP monolítico** com um **frontend híbrido**, m
 O ChurchCRM é um projeto maduro, robusto e funcional, que combina tecnologias legadas e modernas.  
 Apesar de sua arquitetura monolítica, o uso de React, TypeScript e ferramentas modernas de QA e CI/CD mostra uma evolução gradual rumo a boas práticas contemporâneas de desenvolvimento.
 
-# Análise de Atualizações Possíveis
+## Status das Atualizações - ✅ COMPLETAS
+
+### 🟢 Fase 1: Atualizações Seguras (Baixo Risco) - ✅ CONCLUÍDA
+- ✅ `@types/react`: 18.3.18 → **19.2.7**
+- ✅ `@types/react-dom`: 18.3.5 → **19.2.3**
+- ✅ Cypress: 15.4.0 → **15.8.1**
+- ✅ Prettier: 3.6.2 → **3.7.4**
+- ✅ Sass: 1.93.2 → **1.97.2**
+- ✅ Webpack CLI: 5.0.0 → **6.0.1**
+- ✅ PHPUnit: 11.5 → **11.5.46**
+- ✅ PHPStan: 2.1.6 → **2.1.33**
+- ✅ Slim Framework: patch versions atualizadas
+
+### 🟠 Fase 2: Atualizações Médias (Risco Controlado) - ✅ CONCLUÍDA
+- ✅ Symfony Components: Mantidos em **5.4.45** (compatível com Propel ORM)
+- ✅ Monolog: 2.10.0 → **2.11.0** (última versão 2.x estável)
+
+### 🔴 Fase 3: Grandes Atualizações (Alto Risco) - ✅ CONCLUÍDA
+- ✅ Bootstrap: 4.6.2 → **5.3.8**
+- ✅ AdminLTE: 3.2.0 → **4.0.0-rc6**
+
+### 🔧 Fase 4: Refinamento Pós-Bootstrap 5 - ✅ CONCLUÍDA
+- ✅ Select2 Theme: Bootstrap 4 → **Bootstrap 5** (select2-bootstrap-5-theme v1.3.0)
+- ✅ Classes CSS: `ml-*` → `ms-*`, `mr-*` → `me-*` migradas
+- ✅ Componentes JavaScript: Atualizados para Bootstrap 5
+- ✅ jQuery: Compatibilidade mantida com Bootstrap 5
+- ✅ Documentação: Atualizada com novas versões
+
+## Análise de Atualizações Possíveis
 
 ## Atualizações Críticas Recomendadas
 
@@ -266,3 +294,76 @@ A migração para **Bootstrap 5** deve ser tratada como um **projeto separado**,
 
 **🎯 Prioridade imediata:**  
 Atualizações de segurança e *patch versions* para manter o sistema estável e seguro.
+
+# 📘 MÓDULO MINISTÉRIO & COMUNICAÇÃO – CRM ECLESIÁSTICO
+
+## 🎯 Objetivo
+Gerar automaticamente **todo o módulo `ministerio`**, totalmente funcional, integrado ao CRM eclesiástico existente, utilizando **PHP puro**, **MariaDB**, **Docker Compose**, respeitando **RBAC**, **tema visual do sistema** e **documentação técnica completa**.
+
+---
+
+## 1️⃣ BANCO DE DADOS (MariaDB)
+
+```sql
+CREATE TABLE ministerios (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(150) NOT NULL,
+  descricao TEXT,
+  lider_id BIGINT UNSIGNED NOT NULL,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em TIMESTAMP NULL,
+  INDEX idx_lider (lider_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE ministerio_membros (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  ministerio_id BIGINT UNSIGNED NOT NULL,
+  usuario_id BIGINT UNSIGNED NOT NULL,
+  funcao VARCHAR(100),
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_membro (ministerio_id, usuario_id),
+  FOREIGN KEY (ministerio_id) REFERENCES ministerios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE ministerio_reunioes (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  ministerio_id BIGINT UNSIGNED NOT NULL,
+  titulo VARCHAR(150),
+  descricao TEXT,
+  data_reuniao DATETIME NOT NULL,
+  local VARCHAR(255),
+  criado_por BIGINT UNSIGNED,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (ministerio_id) REFERENCES ministerios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE ministerio_reunioes_participantes (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  reuniao_id BIGINT UNSIGNED,
+  usuario_id BIGINT UNSIGNED,
+  rsvp_token VARBINARY(255),
+  status ENUM('confirmado','recusado','pendente') DEFAULT 'pendente',
+  FOREIGN KEY (reuniao_id) REFERENCES ministerio_reunioes(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE ministerio_mensagens (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  ministerio_id BIGINT UNSIGNED,
+  titulo VARCHAR(150),
+  corpo TEXT,
+  canal ENUM('email','whatsapp','interno'),
+  agendada_em DATETIME NULL,
+  enviada_em DATETIME NULL,
+  status ENUM('pendente','enviada','erro') DEFAULT 'pendente',
+  FOREIGN KEY (ministerio_id) REFERENCES ministerios(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE ministerio_logs (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  usuario_id BIGINT UNSIGNED,
+  acao VARCHAR(100),
+  dados_antigos JSON,
+  dados_novos JSON,
+  ip_origem VARCHAR(45),
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

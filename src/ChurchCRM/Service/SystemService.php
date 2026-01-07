@@ -12,7 +12,8 @@ use ChurchCRM\Utils\LoggerUtils;
 use PDO;
 use Propel\Runtime\Propel;
 
-require SystemURLs::getDocumentRoot() . '/vendor/ifsnop/mysqldump-php/src/Ifsnop/Mysqldump/Mysqldump.php';
+// Load MySQLDump library via Composer autoload
+use Ifsnop\Mysqldump\Mysqldump;
 
 class SystemService
 {
