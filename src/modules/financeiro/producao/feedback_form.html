@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback - Módulo Financeiro</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .rating-star {
+        cursor: pointer;
+        color: #ddd;
+        font-size: 1.5rem;
+      }
+      .rating-star.active {
+        color: #ffc107;
+      }
+      .feature-card {
+        transition: transform 0.2s;
+      }
+      .feature-card:hover {
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+              <h4 class="mb-0">
+                <i class="fas fa-comment-dots me-2"></i>
+                Feedback - Módulo Financeiro
+              </h4>
+            </div>
+            <div class="card-body">
+              <form id="feedbackForm">
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <label class="form-label">Seu Nome</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="user_name"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Seu Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="user_email"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <label class="form-label">Seu Cargo</label>
+                    <select class="form-select" name="user_role" required>
+                      <option value="">Selecione...</option>
+                      <option value="admin">Administrador</option>
+                      <option value="financeiro">Financeiro</option>
+                      <option value="pastor">Pastor</option>
+                      <option value="secretaria">Secretaria</option>
+                      <option value="membro">Membro</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Tempo de Uso</label>
+                    <select class="form-select" name="usage_time">
+                      <option value="">Selecione...</option>
+                      <option value="1_semana">Menos de 1 semana</option>
+                      <option value="1_mes">1-3 meses</option>
+                      <option value="6_meses">3-6 meses</option>
+                      <option value="1_ano">6 meses - 1 ano</option>
+                      <option value="mais_1_ano">Mais de 1 ano</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <h5 class="mb-3">Avalie o Módulo Financeiro</h5>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label">Facilidade de Uso</label>
+                      <div class="rating-group" data-field="ease_of_use">
+                        <i class="fas fa-star rating-star" data-value="1"></i>
+                        <i class="fas fa-star rating-star" data-value="2"></i>
+                        <i class="fas fa-star rating-star" data-value="3"></i>
+                        <i class="fas fa-star rating-star" data-value="4"></i>
+                        <i class="fas fa-star rating-star" data-value="5"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label">Performance</label>
+                      <div class="rating-group" data-field="performance">
+                        <i class="fas fa-star rating-star" data-value="1"></i>
+                        <i class="fas fa-star rating-star" data-value="2"></i>
+                        <i class="fas fa-star rating-star" data-value="3"></i>
+                        <i class="fas fa-star rating-star" data-value="4"></i>
+                        <i class="fas fa-star rating-star" data-value="5"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label">Funcionalidades</label>
+                      <div class="rating-group" data-field="features">
+                        <i class="fas fa-star rating-star" data-value="1"></i>
+                        <i class="fas fa-star rating-star" data-value="2"></i>
+                        <i class="fas fa-star rating-star" data-value="3"></i>
+                        <i class="fas fa-star rating-star" data-value="4"></i>
+                        <i class="fas fa-star rating-star" data-value="5"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label">Satisfação Geral</label>
+                      <div
+                        class="rating-group"
+                        data-field="overall_satisfaction"
+                      >
+                        <i class="fas fa-star rating-star" data-value="1"></i>
+                        <i class="fas fa-star rating-star" data-value="2"></i>
+                        <i class="fas fa-star rating-star" data-value="3"></i>
+                        <i class="fas fa-star rating-star" data-value="4"></i>
+                        <i class="fas fa-star rating-star" data-value="5"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <label class="form-label">Funcionalidade Mais Usada</label>
+                    <select class="form-select" name="most_used_feature">
+                      <option value="">Selecione...</option>
+                      <option value="dashboard">Dashboard Financeiro</option>
+                      <option value="metodos_pagamento">
+                        Métodos de Pagamento
+                      </option>
+                      <option value="relatorios">Relatórios</option>
+                      <option value="fluxo_caixa">Fluxo de Caixa</option>
+                      <option value="tendencias">Análise de Tendências</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Funcionalidade Menos Usada</label>
+                    <select class="form-select" name="least_used_feature">
+                      <option value="">Selecione...</option>
+                      <option value="dashboard">Dashboard Financeiro</option>
+                      <option value="metodos_pagamento">
+                        Métodos de Pagamento
+                      </option>
+                      <option value="relatorios">Relatórios</option>
+                      <option value="fluxo_caixa">Fluxo de Caixa</option>
+                      <option value="tendencias">Análise de Tendências</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      name="would_recommend"
+                      id="wouldRecommend"
+                    />
+                    <label class="form-check-label" for="wouldRecommend">
+                      Recomendaria este módulo para outras igrejas?
+                    </label>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label">Comentários</label>
+                  <textarea
+                    class="form-control"
+                    name="comments"
+                    rows="4"
+                    placeholder="O que você mais gostou no módulo?"
+                  ></textarea>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label">Sugestões de Melhoria</label>
+                  <textarea
+                    class="form-control"
+                    name="suggestions"
+                    rows="4"
+                    placeholder="O que poderia ser melhorado?"
+                  ></textarea>
+                </div>
+
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-paper-plane me-2"></i>
+                    Enviar Feedback
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Sistema de avaliação por estrelas
+      document.querySelectorAll(".rating-group").forEach((group) => {
+        const stars = group.querySelectorAll(".rating-star");
+        const field = group.dataset.field;
+
+        stars.forEach((star, index) => {
+          star.addEventListener("click", () => {
+            const value = parseInt(star.dataset.value);
+            stars.forEach((s, i) => {
+              s.classList.toggle("active", i < value);
+            });
+
+            // Criar input hidden
+            let input = document.querySelector(`input[name="${field}"]`);
+            if (!input) {
+              input = document.createElement("input");
+              input.type = "hidden";
+              input.name = field;
+              document.getElementById("feedbackForm").appendChild(input);
+            }
+            input.value = value;
+          });
+
+          star.addEventListener("mouseenter", () => {
+            const value = parseInt(star.dataset.value);
+            stars.forEach((s, i) => {
+              s.classList.toggle("active", i < value);
+            });
+          });
+        });
+
+        group.addEventListener("mouseleave", () => {
+          const input = document.querySelector(`input[name="${field}"]`);
+          const value = input ? parseInt(input.value) : 0;
+          stars.forEach((s, i) => {
+            s.classList.toggle("active", i < value);
+          });
+        });
+      });
+
+      // Submit do formulário
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const formData = new FormData(e.target);
+          const data = Object.fromEntries(formData);
+
+          // Converter checkbox
+          data.would_recommend = formData.has("would_recommend");
+
+          // Enviar para API
+          fetch("/api/financeiro/feedback", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((result) => {
+              if (result.success) {
+                alert(
+                  "Feedback enviado com sucesso! Obrigado pela sua contribuição.",
+                );
+                e.target.reset();
+                document
+                  .querySelectorAll(".rating-star")
+                  .forEach((s) => s.classList.remove("active"));
+              } else {
+                alert("Erro ao enviar feedback: " + result.message);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Erro ao enviar feedback. Tente novamente.");
+            });
+        });
+    </script>
+  </body>
+</html>

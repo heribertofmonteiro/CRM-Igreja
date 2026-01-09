@@ -26,30 +26,31 @@ class MensagemModel
      */
     public static function criar($dados)
     {
-        $ministerioId = (int)$dados['ministerio_id'];
-        $reuniaoId = !empty($dados['reuniao_id']) ? (int)$dados['reuniao_id'] : 'NULL';
-        $tipo = CRM_mysqli_real_escape_string($GLOBALS['cnInfoCentral'], $dados['tipo'] ?? 'geral');
-        $assunto = CRM_mysqli_real_escape_string($GLOBALS['cnInfoCentral'], $dados['assunto']);
-        $conteudo = CRM_mysqli_real_escape_string($GLOBALS['cnInfoCentral'], $dados['conteudo']);
-        $template = !empty($dados['template']) ? "'" . CRM_mysqli_real_escape_string($GLOBALS['cnInfoCentral'], $dados['template']) . "'" : 'NULL';
-        $canal = CRM_mysqli_real_escape_string($GLOBALS['cnInfoCentral'], $dados['canal'] ?? 'email');
-        $status = CRM_mysqli_real_escape_string($GLOBALS['cnInfoCentral'], $dados['status'] ?? 'rascunho');
-        $dataAgendamento = !empty($dados['data_agendamento']) ? "'" . CRM_mysqli_real_escape_string($GLOBALS['cnInfoCentral'], $dados['data_agendamento']) . "'" : 'NULL';
-        $criadoPor = (int)$dados['criado_por'];
+        $pdo = self::initConnection();
+        $stmt = $pdo->prepare("
+            INSERT INTO ministerio_mensagens 
+            (ministerio_id, reuniao_id, tipo, assunto, conteudo, template, canal, status, data_agendamento, criado_por) 
+            VALUES (:ministerio_id, :reuniao_id, :tipo, :assunto, :conteudo, :template, :canal, :status, :data_agendamento, :criado_por)
+        ");
         
-        $sql = "INSERT INTO ministerio_mensagens 
-                (ministerio_id, reuniao_id, tipo, assunto, conteudo, template, canal, status, data_agendamento, criado_por) 
-                VALUES ($ministerioId, $reuniaoId, '$tipo', '$assunto', '$conteudo', $template, '$canal', '$status', $dataAgendamento, $criadoPor)";
+        $result = $stmt->execute([
+            ':ministerio_id' => $dados['ministerio_id'],
+            ':reuniao_id' => $dados['reuniao_id'] ?? null,
+            ':tipo' => $dados['tipo'] ?? 'geral',
+            ':assunto' => $dados['assunto'],
+            ':conteudo' => $dados['conteudo'],
+            ':template' => $dados['template'] ?? null,
+            ':canal' => $dados['canal'] ?? 'email',
+            ':status' => $dados['status'] ?? 'rascunho',
+            ':data_agendamento' => $dados['data_agendamento'] ?? null,
+            ':criado_por' => $dados['criado_por']
+        ]);
         
-        RunQuery($sql);
-        $mensagemId = CRM_mysqli_insert_id($GLOBALS['cnInfoCentral']);
-        
-        // Se não for rascunho, criar registros de envio
-        if ($status !== 'rascunho') {
-            self::criarRegistrosEnvio($mensagemId, $ministerioId, $reuniaoId);
+        if ($result) {
+            return $pdo->lastInsertId();
         }
         
-        return $mensagemId;
+        return false;
     }
     
     /**
@@ -88,14 +89,158 @@ class MensagemModel
     }
     
     /**
+     * Listar todas as mensagens
+     */
+    public static function list()
+    {
+        $pdo = self::initConnection();
+        $stmt = $pdo->query("
+            SELECT m.*, 
+                   min.nome as ministerio_nome,
+                   u.name as criador_nome
+            FROM ministerio_mensagens m
+            LEFT JOIN ministerios min ON m.ministerio_id = min.id
+            LEFT JOIN users u ON m.criado_por = u.id
+            ORDER BY m.criado_em DESC
+        ");
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    /**
+     * Criar mensagem (alias para criar)
+     */
+    public static function create($dados)
+    {
+        return self::criar($dados);
+    }
+    
+    /**
+     * Atualizar mensagem
+     */
+    public static function update($id, $dados)
+    {
+        $pdo = self::initConnection();
+        $set = [];
+        
+        if (isset($dados['assunto'])) {
+            $set[] = "assunto = :assunto";
+        }
+        if (isset($dados['conteudo'])) {
+            $set[] = "conteudo = :conteudo";
+        }
+        if (isset($dados['canal'])) {
+            $set[] = "canal = :canal";
+        }
+        if (isset($dados['status'])) {
+            $set[] = "status = :status";
+        }
+        if (isset($dados['data_agendamento'])) {
+            $set[] = "data_agendamento = :data_agendamento";
+        }
+        
+        if (empty($set)) {
+            return false;
+        }
+        
+        $sql = "UPDATE ministerio_mensagens SET " . implode(', ', $set) . " WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        
+        $params = [':id' => $id];
+        if (isset($dados['assunto'])) $params[':assunto'] = $dados['assunto'];
+        if (isset($dados['conteudo'])) $params[':conteudo'] = $dados['conteudo'];
+        if (isset($dados['canal'])) $params[':canal'] = $dados['canal'];
+        if (isset($dados['status'])) $params[':status'] = $dados['status'];
+        if (isset($dados['data_agendamento'])) $params[':data_agendamento'] = $dados['data_agendamento'];
+        
+        return $stmt->execute($params);
+    }
+    
+    /**
+     * Excluir mensagem
+     */
+    public static function delete($id)
+    {
+        $pdo = self::initConnection();
+        $stmt = $pdo->prepare("DELETE FROM ministerio_mensagens WHERE id = :id");
+        return $stmt->execute([':id' => $id]);
+    }
+    
+    /**
+     * Buscar por ID (alias)
+     */
+    public static function findById($id)
+    {
+        return self::buscarPorId($id);
+    }
+    
+    /**
+     * Listar destinatários
+     */
+    public static function listRecipients($ministerioId)
+    {
+        $pdo = self::initConnection();
+        $stmt = $pdo->prepare("
+            SELECT DISTINCT u.id, u.name as nome, u.email
+            FROM users u
+            INNER JOIN ministerio_membros mm ON u.id = mm.membro_id
+            WHERE mm.ministerio_id = :ministerio_id 
+              AND mm.ativo = 1
+            ORDER BY u.name
+        ");
+        $stmt->execute([':ministerio_id' => $ministerioId]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    /**
+     * Gerar preview
+     */
+    public static function generatePreview($conteudo, $canal)
+    {
+        // Substituir variáveis de template
+        $preview = str_replace([
+            '{nome}', '{email}', '{telefone}'
+        ], [
+            'João Silva', 'joao@exemplo.com', '(11) 99999-9999'
+        ], $conteudo);
+        
+        // Formatar according ao canal
+        switch ($canal) {
+            case 'email':
+                return nl2br($preview);
+            case 'whatsapp':
+                return nl2br($preview);
+            case 'sms':
+                return substr($preview, 0, 160) . (strlen($preview) > 160 ? '...' : '');
+            default:
+                return $preview;
+        }
+    }
+    
+    /**
+     * Cancelar mensagem
+     */
+    public static function cancel($id)
+    {
+        $pdo = self::initConnection();
+        $stmt = $pdo->prepare("
+            UPDATE ministerio_mensagens 
+            SET status = 'rascunho', data_agendamento = NULL
+            WHERE id = :id AND status = 'agendado'
+        ");
+        
+        return $stmt->execute([':id' => $id]);
+    }
+    /**
      * Buscar mensagem por ID
      */
     public static function buscarPorId($id)
     {
-        $id = (int)$id;
-        $sql = "SELECT * FROM ministerio_mensagens WHERE id = $id";
-        $result = RunQuery($sql);
-        return CRM_mysqli_fetch_assoc($result);
+        $pdo = self::initConnection();
+        $stmt = $pdo->prepare("SELECT * FROM ministerio_mensagens WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
     /**

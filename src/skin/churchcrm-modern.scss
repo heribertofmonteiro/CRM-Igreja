@@ -1,0 +1,771 @@
+@use "sass:meta";
+
+/*! ChurchCRM Modern Theme - Bootstrap 5 + Tailwind CSS
+ * Design limpo, moderno e profissional com cores vivas
+ * Interface intuitiva e impactante visualmente
+ */
+
+// Import Bootstrap 5
+@import "~bootstrap/scss/bootstrap";
+
+// Import bibliotecas externas
+@import "external/bootstrap-datepicker/bootstrap-datepicker.standalone.min.css";
+@import "external/datatables/datatables.min.css";
+@import "external/select2/select2.min.css";
+
+// Import componentes ChurchCRM
+@include meta.load-css("scss/utility-classes");
+@include meta.load-css("scss/ui-components");
+@include meta.load-css("scss/dropdowns");
+@include meta.load-css("scss/forms");
+@include meta.load-css("scss/tables");
+@include meta.load-css("scss/profileImage");
+@include meta.load-css("scss/shortConfig");
+@include meta.load-css("scss/leftNav");
+@include meta.load-css("scss/imageOverlay");
+@include meta.load-css("scss/maps");
+@include meta.load-css("scss/spacing");
+@include meta.load-css("scss/SystemNotifications");
+@include meta.load-css("scss/cart");
+@include meta.load-css("scss/calendars");
+
+// Import sidebar moderno
+@import "sidebar-modern.scss";
+
+// Variáveis do tema moderno
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --danger-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --dark-gradient: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+
+    --glass-white: rgba(255, 255, 255, 0.95);
+    --glass-light: rgba(255, 255, 255, 0.8);
+    --glass-dark: rgba(0, 0, 0, 0.8);
+
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 10px 15px rgba(0, 0, 0, 0.15);
+    --shadow-hard: 0 20px 25px rgba(0, 0, 0, 0.2);
+
+    --border-light: rgba(255, 255, 255, 0.2);
+    --border-medium: rgba(255, 255, 255, 0.3);
+    --border-dark: rgba(0, 0, 0, 0.3);
+}
+
+// Estilos globais
+body {
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+// Estrutura principal
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    background: transparent;
+}
+
+// Header moderno
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 65px;
+    z-index: 1031;
+    background: var(--glass-white);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow-soft);
+
+    .navbar {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 2rem;
+
+        .navbar-brand {
+            color: #667eea !important;
+            font-weight: 700;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+
+            &:hover {
+                color: #764ba2 !important;
+                transform: scale(1.05);
+            }
+        }
+
+        .nav > li > a {
+            color: #4b5563 !important;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+
+            &:hover,
+            &:focus {
+                background: var(--primary-gradient);
+                color: #ffffff !important;
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-medium);
+            }
+        }
+
+        .dropdown-menu {
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light);
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-hard);
+
+            .dropdown-item {
+                color: #4b5563;
+                font-weight: 500;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: var(--primary-gradient);
+                    color: #ffffff;
+                    transform: translateX(5px);
+                }
+            }
+        }
+    }
+}
+
+// Sidebar moderna
+.main-sidebar {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 260px;
+    height: calc(100vh - 65px);
+    z-index: 1030;
+    background: var(--glass-white);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid var(--border-light);
+    box-shadow: var(--shadow-medium);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #667eea;
+        border-radius: 3px;
+    }
+
+    .brand-link {
+        background: var(--primary-gradient);
+        border-bottom: 1px solid var(--border-light);
+
+        .brand-image {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .brand-text {
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+    }
+
+    .sidebar {
+        .nav > li > a {
+            color: #4b5563 !important;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+
+            &:hover,
+            &:focus {
+                background: var(--primary-gradient);
+                color: #ffffff !important;
+                transform: translateX(5px);
+                box-shadow: var(--shadow-soft);
+            }
+
+            &.active {
+                background: var(--primary-gradient);
+                color: #ffffff !important;
+                box-shadow: var(--shadow-medium);
+            }
+        }
+    }
+}
+
+// Content wrapper moderno
+.content-wrapper {
+    margin-left: 260px;
+    margin-top: 65px;
+    min-height: calc(100vh - 65px);
+    background: rgba(255, 255, 255, 0.5);
+    padding: 0;
+    width: calc(100% - 260px);
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+// Header do conteúdo
+.content-header {
+    background: var(--glass-white);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: var(--shadow-soft);
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 0.5rem;
+    }
+
+    .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        font-size: 0.9rem;
+
+        li {
+            color: #6b7280;
+
+            a {
+                color: #667eea;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    color: #764ba2;
+                }
+            }
+        }
+    }
+}
+
+// Área de conteúdo principal
+.content {
+    padding: 0 2rem 2rem;
+    max-width: none;
+    width: 100%;
+
+    .container-fluid {
+        padding: 0;
+        max-width: none;
+        width: 100%;
+    }
+
+    // Cards modernos
+    .card {
+        background: var(--glass-white);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-light);
+        border-radius: 1rem;
+        box-shadow: var(--shadow-soft);
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        overflow: hidden;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hard);
+            border-color: #667eea;
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.25rem 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 1.125rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            color: #4b5563;
+        }
+    }
+
+    // Small boxes modernos
+    .small-box {
+        background: var(--glass-white);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-light);
+        border-radius: 1rem;
+        box-shadow: var(--shadow-soft);
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        overflow: hidden;
+
+        &:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-hard);
+        }
+
+        &.bg-info {
+            background: linear-gradient(
+                135deg,
+                rgba(102, 126, 234, 0.1),
+                rgba(102, 126, 234, 0.05)
+            );
+            border-color: #667eea;
+
+            .icon {
+                color: #667eea;
+            }
+        }
+
+        &.bg-success {
+            background: linear-gradient(
+                135deg,
+                rgba(79, 172, 254, 0.1),
+                rgba(0, 242, 254, 0.05)
+            );
+            border-color: #4facfe;
+
+            .icon {
+                color: #4facfe;
+            }
+        }
+
+        &.bg-warning {
+            background: linear-gradient(
+                135deg,
+                rgba(67, 233, 123, 0.1),
+                rgba(56, 249, 215, 0.05)
+            );
+            border-color: #43e97b;
+
+            .icon {
+                color: #43e97b;
+            }
+        }
+
+        &.bg-danger {
+            background: linear-gradient(
+                135deg,
+                rgba(250, 112, 154, 0.1),
+                rgba(254, 225, 64, 0.05)
+            );
+            border-color: #fa709a;
+
+            .icon {
+                color: #fa709a;
+            }
+        }
+
+        .inner {
+            padding: 1.5rem;
+
+            h3 {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #1f2937;
+                margin-bottom: 0.5rem;
+            }
+
+            p {
+                font-size: 0.875rem;
+                color: #6b7280;
+                margin: 0;
+            }
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            top: 1.5rem;
+            right: 1.5rem;
+            transition: all 0.3s ease;
+        }
+    }
+
+    // Tabelas modernas
+    .table-responsive {
+        background: var(--glass-white);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-light);
+        border-radius: 1rem;
+        box-shadow: var(--shadow-soft);
+        overflow: hidden;
+
+        .table {
+            background: transparent;
+            color: #4b5563;
+
+            thead th {
+                background: rgba(102, 126, 234, 0.1);
+                border-bottom: 2px solid #667eea;
+                color: #1f2937;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.025em;
+                padding: 1rem 0.75rem;
+
+                &:hover {
+                    background: rgba(102, 126, 234, 0.15);
+                }
+            }
+
+            tbody tr {
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: rgba(102, 126, 234, 0.05);
+                    transform: scale(1.01);
+                }
+
+                td {
+                    border-bottom: 1px solid var(--border-light);
+                    padding: 1rem 0.75rem;
+                    color: #4b5563;
+                }
+            }
+        }
+    }
+
+    // Formulários modernos
+    .form-group {
+        margin-bottom: 1.5rem;
+
+        label {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .form-control {
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--border-light);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            color: #4b5563;
+            transition: all 0.3s ease;
+
+            &:focus {
+                border-color: #667eea;
+                box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+                outline: none;
+                transform: translateY(-2px);
+            }
+
+            &::placeholder {
+                color: #9ca3af;
+            }
+        }
+    }
+
+    // Botões modernos
+    .btn {
+        border-radius: 0.75rem;
+        padding: 0.75rem 1.5rem;
+        font-weight: 700;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        &.btn-primary {
+            background: var(--primary-gradient);
+            border-color: #667eea;
+            color: #ffffff;
+
+            &:hover {
+                box-shadow: var(--shadow-medium);
+            }
+        }
+
+        &.btn-success {
+            background: var(--success-gradient);
+            border-color: #4facfe;
+            color: #ffffff;
+
+            &:hover {
+                box-shadow: var(--shadow-medium);
+            }
+        }
+
+        &.btn-warning {
+            background: var(--warning-gradient);
+            border-color: #43e97b;
+            color: #ffffff;
+
+            &:hover {
+                box-shadow: var(--shadow-medium);
+            }
+        }
+
+        &.btn-danger {
+            background: var(--danger-gradient);
+            border-color: #fa709a;
+            color: #ffffff;
+
+            &:hover {
+                box-shadow: var(--shadow-medium);
+            }
+        }
+
+        &.btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        &.btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+    }
+}
+
+// Footer moderno
+.main-footer {
+    margin-left: 260px;
+    background: var(--glass-white);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border-light);
+    padding: 1.5rem 2rem;
+    color: #4b5563;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+// Sidebar colapsada
+.sidebar-collapse {
+    .main-sidebar {
+        transform: translateX(-260px);
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .main-footer {
+        margin-left: 0;
+    }
+}
+
+// Responsividade avançada
+@media (max-width: 1200px) {
+    .content {
+        padding: 0 1.5rem 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-sidebar {
+        width: 240px;
+    }
+
+    .content-wrapper {
+        margin-left: 240px;
+        width: calc(100% - 240px);
+    }
+
+    .main-footer {
+        margin-left: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-sidebar {
+        transform: translateX(-260px);
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .main-footer {
+        margin-left: 0;
+    }
+
+    .sidebar-open {
+        .main-sidebar {
+            transform: translateX(0);
+        }
+    }
+
+    .content {
+        padding: 0 1rem 1rem;
+
+        .content-header {
+            padding: 1rem;
+
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+
+        .card {
+            margin-bottom: 1rem;
+
+            .card-body {
+                padding: 1rem;
+            }
+        }
+
+        .small-box {
+            margin-bottom: 1rem;
+
+            .inner {
+                padding: 1rem;
+
+                h3 {
+                    font-size: 1.75rem;
+                }
+            }
+        }
+
+        .btn {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .main-header {
+        height: 60px;
+
+        .navbar {
+            padding: 0 1rem;
+
+            .navbar-brand {
+                font-size: 1.125rem;
+            }
+        }
+    }
+
+    .main-sidebar {
+        top: 60px;
+        height: calc(100vh - 60px);
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .content-wrapper {
+        margin-top: 60px;
+        min-height: calc(100vh - 60px);
+    }
+
+    .content {
+        padding: 0 0.75rem 0.75rem;
+
+        .content-header {
+            padding: 0.75rem;
+            text-align: center;
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .card {
+            margin-bottom: 0.75rem;
+
+            .card-header {
+                padding: 0.75rem;
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            .card-body {
+                padding: 0.75rem;
+            }
+        }
+
+        .small-box {
+            text-align: center;
+
+            .inner {
+                padding: 0.75rem;
+                text-align: center;
+
+                h3 {
+                    font-size: 1.5rem;
+                }
+            }
+
+            .icon {
+                position: relative;
+                top: auto;
+                right: auto;
+                display: block;
+                margin: 0 auto 0.5rem;
+            }
+        }
+    }
+}
+
+// Scrollbar personalizado
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 4px;
+
+    &:hover {
+        background: #764ba2;
+    }
+}
+
+// Loading animation
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--border-light);
+    border-radius: 50%;
+    border-top-color: #667eea;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

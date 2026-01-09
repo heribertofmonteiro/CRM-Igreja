@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🤖 AI Church Dashboard - Inteligência Artificial para Igreja</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --success-gradient: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+        --warning-gradient: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+        --danger-gradient: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+      }
+
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .navbar {
+        background: var(--primary-gradient);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-header {
+        border-radius: 15px 15px 0 0 !important;
+        font-weight: 600;
+        border: none;
+      }
+
+      .metric-card {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .metric-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .metric-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .metric-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .metric-change {
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .metric-change.positive {
+        color: #28a745;
+      }
+
+      .metric-change.negative {
+        color: #dc3545;
+      }
+
+      .module-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .module-card .card-header {
+        background: var(--primary-gradient);
+        color: white;
+      }
+
+      .module-card.analytics .card-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .module-card.strategic .card-header {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+
+      .module-card.pastoral .card-header {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      }
+
+      .module-card.financial .card-header {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      }
+
+      .module-card.operational .card-header {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      }
+
+      .module-card.search .card-header {
+        background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+      }
+
+      .insight-card {
+        border-left: 4px solid;
+        transition: all 0.3s ease;
+      }
+
+      .insight-card.trend {
+        border-left-color: #007bff;
+      }
+
+      .insight-card.recommendation {
+        border-left-color: #28a745;
+      }
+
+      .insight-card.prediction {
+        border-left-color: #ffc107;
+      }
+
+      .insight-card.anomaly {
+        border-left-color: #dc3545;
+      }
+
+      .chart-container {
+        position: relative;
+        height: 300px;
+        margin: 20px 0;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .loading.show {
+        display: block;
+      }
+
+      .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #667eea;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .search-box {
+        position: relative;
+      }
+
+      .search-box input {
+        border-radius: 25px;
+        padding-left: 45px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+      }
+
+      .search-box input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+      }
+
+      .search-box i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+      }
+
+      .status-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+      }
+
+      .status-indicator.active {
+        background-color: #28a745;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-brain me-2"></i>
+          <strong>AI Church Dashboard</strong>
+        </a>
+        <div class="navbar-nav ms-auto">
+          <span class="navbar-text">
+            <span class="status-indicator active"></span>
+            <span id="system-status">Sistema Ativo</span>
+          </span>
+          <button
+            class="btn btn-outline-light btn-sm ms-3"
+            onclick="refreshData()"
+          >
+            <i class="fas fa-sync-alt"></i> Atualizar
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+      <!-- Header Metrics -->
+      <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="metric-card">
+            <div class="metric-value" id="total-members">0</div>
+            <div class="metric-label">Membros Ativos</div>
+            <div class="metric-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span id="members-growth">+0%</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="metric-card">
+            <div class="metric-value" id="monthly-revenue">R$0</div>
+            <div class="metric-label">Receita Mensal</div>
+            <div class="metric-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span id="revenue-growth">+0%</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="metric-card">
+            <div class="metric-value" id="avg-attendance">0</div>
+            <div class="metric-label">Média Attendance</div>
+            <div class="metric-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span id="attendance-growth">+0%</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="metric-card">
+            <div class="metric-value" id="ai-insights">0</div>
+            <div class="metric-label">Insights IA</div>
+            <div class="metric-change positive">
+              <i class="fas fa-sparkles"></i>
+              <span id="insights-new">Novos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              id="search-input"
+              placeholder="🔍 Buscar inteligente de membros, eventos, finanças..."
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Modules -->
+      <div class="row mb-4">
+        <div class="col-lg-4 col-md-6 mb-3">
+          <div
+            class="card module-card analytics"
+            onclick="openModule('analytics')"
+          >
+            <div class="card-header">
+              <i class="fas fa-chart-line me-2"></i>
+              <strong>IA Analítica</strong>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Análise preditiva avançada e tendências</p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fas fa-check text-success"></i> Previsão de
+                  crescimento
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Análise de
+                  attendance
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Segmentação de
+                  membros
+                </li>
+              </ul>
+              <span class="badge bg-primary">4 modelos ativos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-3">
+          <div
+            class="card module-card strategic"
+            onclick="openModule('strategic')"
+          >
+            <div class="card-header">
+              <i class="fas fa-chess me-2"></i>
+              <strong>IA Estratégica</strong>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Planejamento inteligente e metas</p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fas fa-check text-success"></i> Definição de metas
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Simulação de
+                  cenários
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Análise de riscos
+                </li>
+              </ul>
+              <span class="badge bg-primary">4 modelos ativos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-3">
+          <div
+            class="card module-card pastoral"
+            onclick="openModule('pastoral')"
+          >
+            <div class="card-header">
+              <i class="fas fa-heart me-2"></i>
+              <strong>IA Pastoral</strong>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Cuidado pastoral e engajamento</p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fas fa-check text-success"></i> Previsão de
+                  engajamento
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Detecção de churn
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Crescimento
+                  espiritual
+                </li>
+              </ul>
+              <span class="badge bg-primary">4 modelos ativos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-3">
+          <div
+            class="card module-card financial"
+            onclick="openModule('financial')"
+          >
+            <div class="card-header">
+              <i class="fas fa-dollar-sign me-2"></i>
+              <strong>IA Financeira</strong>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Previsões e otimização financeira</p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fas fa-check text-success"></i> Previsão de receitas
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Otimização de custos
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Detecção de fraudes
+                </li>
+              </ul>
+              <span class="badge bg-primary">4 modelos ativos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-3">
+          <div
+            class="card module-card operational"
+            onclick="openModule('operational')"
+          >
+            <div class="card-header">
+              <i class="fas fa-cogs me-2"></i>
+              <strong>IA Operacional</strong>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Otimização de processos e eventos</p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fas fa-check text-success"></i> Planejamento de
+                  eventos
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Otimização de
+                  voluntários
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Gestão de
+                  instalações
+                </li>
+              </ul>
+              <span class="badge bg-primary">4 modelos ativos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-3">
+          <div class="card module-card search" onclick="openModule('search')">
+            <div class="card-header">
+              <i class="fas fa-search me-2"></i>
+              <strong>IA de Pesquisa</strong>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Busca semântica e recomendações</p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fas fa-check text-success"></i> Busca inteligente
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Sistema de
+                  recomendação
+                </li>
+                <li>
+                  <i class="fas fa-check text-success"></i> Q&A automatizado
+                </li>
+              </ul>
+              <span class="badge bg-primary">4 modelos ativos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts and Insights -->
+      <div class="row">
+        <div class="col-lg-8 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <i class="fas fa-chart-area me-2"></i>
+              <strong>Tendências e Previsões</strong>
+            </div>
+            <div class="card-body">
+              <div class="loading" id="charts-loading">
+                <div class="spinner"></div>
+                <p class="mt-2">Carregando dados...</p>
+              </div>
+              <div class="chart-container">
+                <canvas id="trends-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <i class="fas fa-lightbulb me-2"></i>
+              <strong>Insights da IA</strong>
+            </div>
+            <div class="card-body">
+              <div class="loading" id="insights-loading">
+                <div class="spinner"></div>
+                <p class="mt-2">Gerando insights...</p>
+              </div>
+              <div id="insights-list">
+                <!-- Insights serão carregados aqui -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AI Church Dashboard Script -->
+    <script>
+      // Configuração da API
+      const API_BASE = "/api/ai";
+
+      // Estado do dashboard
+      let dashboardData = {
+        metrics: {},
+        insights: [],
+        charts: {},
+      };
+
+      // Inicialização
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeDashboard();
+        loadAllData();
+        setupEventListeners();
+      });
+
+      // Inicializar dashboard
+      function initializeDashboard() {
+        console.log("🚀 Inicializando AI Church Dashboard...");
+
+        // Inicializar gráficos
+        initializeCharts();
+
+        // Atualizar status
+        updateSystemStatus();
+      }
+
+      // Carregar todos os dados
+      async function loadAllData() {
+        try {
+          // Carregar métricas principais
+          await loadMetrics();
+
+          // Carregar insights
+          await loadInsights();
+
+          // Carregar dados dos gráficos
+          await loadChartData();
+
+          // Atualizar UI
+          updateUI();
+        } catch (error) {
+          console.error("❌ Erro ao carregar dados:", error);
+          showError("Falha ao carregar dados do dashboard");
+        }
+      }
+
+      // Carregar métricas principais
+      async function loadMetrics() {
+        showLoading("charts-loading");
+
+        try {
+          const response = await fetch(`${API_BASE}/analytics`);
+          const data = await response.json();
+
+          dashboardData.metrics = data.overview;
+
+          // Atualizar métricas na UI
+          document.getElementById("total-members").textContent =
+            data.overview.total_members;
+          document.getElementById("members-growth").textContent =
+            `+${(data.overview.growth_rate * 100).toFixed(1)}%`;
+
+          document.getElementById("monthly-revenue").textContent =
+            formatCurrency(data.overview.monthly_revenue);
+          document.getElementById("revenue-growth").textContent =
+            `+${(data.overview.growth_rate * 100).toFixed(1)}%`;
+
+          document.getElementById("avg-attendance").textContent = Math.round(
+            data.overview.avg_attendance,
+          );
+          document.getElementById("attendance-growth").textContent =
+            `+${(data.overview.growth_rate * 100).toFixed(1)}%`;
+        } catch (error) {
+          console.error("Erro ao carregar métricas:", error);
+        }
+
+        hideLoading("charts-loading");
+      }
+
+      // Carregar insights
+      async function loadInsights() {
+        showLoading("insights-loading");
+
+        try {
+          const response = await fetch(`${API_BASE}/insights`);
+          const insights = await response.json();
+
+          dashboardData.insights = insights;
+          displayInsights(insights);
+
+          // Atualizar contador de insights
+          document.getElementById("ai-insights").textContent = insights.length;
+          document.getElementById("insights-new").textContent =
+            insights.length > 0 ? `${insights.length} Novos` : "Nenhum";
+        } catch (error) {
+          console.error("Erro ao carregar insights:", error);
+        }
+
+        hideLoading("insights-loading");
+      }
+
+      // Exibir insights
+      function displayInsights(insights) {
+        const container = document.getElementById("insights-list");
+
+        if (!insights || insights.length === 0) {
+          container.innerHTML =
+            '<p class="text-muted">Nenhum insight disponível no momento.</p>';
+          return;
+        }
+
+        container.innerHTML = insights
+          .map(
+            (insight) => `
+                <div class="insight-card ${insight.type} mb-3 p-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="mb-1">
+                                ${getInsightIcon(insight.type)} ${insight.title}
+                            </h6>
+                            <p class="mb-2 small text-muted">${insight.description}</p>
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-${getImpactColor(insight.impact)} me-2">
+                                    ${insight.impact}
+                                </span>
+                                <small class="text-muted">
+                                    Confiança: ${(insight.confidence * 100).toFixed(0)}%
+                                </small>
+                            </div>
+                        </div>
+                        ${insight.action_required ? '<i class="fas fa-exclamation-circle text-warning"></i>' : ""}
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      // Carregar dados dos gráficos
+      async function loadChartData() {
+        try {
+          // Simulação de dados para o gráfico
+          const chartData = {
+            labels: [
+              "Jan",
+              "Fev",
+              "Mar",
+              "Abr",
+              "Mai",
+              "Jun",
+              "Jul",
+              "Ago",
+              "Set",
+              "Out",
+              "Nov",
+              "Dez",
+            ],
+            datasets: [
+              {
+                label: "Membros",
+                data: [
+                  180, 185, 192, 198, 205, 212, 220, 228, 235, 242, 248, 255,
+                ],
+                borderColor: "rgb(102, 126, 234)",
+                backgroundColor: "rgba(102, 126, 234, 0.1)",
+                tension: 0.4,
+              },
+              {
+                label: "Attendance",
+                data: [
+                  150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200, 205,
+                ],
+                borderColor: "rgb(118, 75, 162)",
+                backgroundColor: "rgba(118, 75, 162, 0.1)",
+                tension: 0.4,
+              },
+              {
+                label: "Receita (K)",
+                data: [30, 32, 35, 33, 36, 38, 40, 42, 41, 44, 46, 48],
+                borderColor: "rgb(67, 233, 123)",
+                backgroundColor: "rgba(67, 233, 123, 0.1)",
+                tension: 0.4,
+              },
+            ],
+          };
+
+          updateChart(chartData);
+        } catch (error) {
+          console.error("Erro ao carregar dados do gráfico:", error);
+        }
+      }
+
+      // Inicializar gráficos
+      function initializeCharts() {
+        const ctx = document.getElementById("trends-chart").getContext("2d");
+
+        dashboardData.charts.trends = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: [],
+            datasets: [],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "top",
+              },
+              title: {
+                display: true,
+                text: "Tendências da Igreja (12 Meses)",
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+
+      // Atualizar gráfico
+      function updateChart(data) {
+        if (dashboardData.charts.trends) {
+          dashboardData.charts.trends.data = data;
+          dashboardData.charts.trends.update();
+        }
+      }
+
+      // Configurar event listeners
+      function setupEventListeners() {
+        // Search
+        document
+          .getElementById("search-input")
+          .addEventListener("input", debounce(handleSearch, 300));
+
+        // Refresh button
+        window.refreshData = loadAllData;
+
+        // Module cards
+        window.openModule = function (module) {
+          console.log(`🚀 Abrindo módulo: ${module}`);
+          // Aqui seria implementada a navegação para o módulo específico
+          showNotification(`Módulo ${module} em desenvolvimento...`, "info");
+        };
+      }
+
+      // Handle search
+      async function handleSearch(event) {
+        const query = event.target.value;
+
+        if (query.length < 2) {
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `${API_BASE}/search?q=${encodeURIComponent(query)}`,
+          );
+          const results = await response.json();
+
+          console.log("🔍 Resultados da busca:", results);
+          // Aqui seria implementada a exibição dos resultados
+        } catch (error) {
+          console.error("Erro na busca:", error);
+        }
+      }
+
+      // Atualizar status do sistema
+      async function updateSystemStatus() {
+        try {
+          const response = await fetch(`${API_BASE}/status`);
+          const status = await response.json();
+
+          const statusElement = document.getElementById("system-status");
+          const indicator = document.querySelector(".status-indicator");
+
+          if (status.status === "active") {
+            statusElement.textContent = "Sistema Ativo";
+            indicator.classList.add("active");
+          } else {
+            statusElement.textContent = "Sistema Inativo";
+            indicator.classList.remove("active");
+          }
+        } catch (error) {
+          document.getElementById("system-status").textContent =
+            "Erro de Conexão";
+        }
+      }
+
+      // Utilitários
+      function formatCurrency(value) {
+        return new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }).format(value);
+      }
+
+      function getInsightIcon(type) {
+        const icons = {
+          trend: '<i class="fas fa-chart-line"></i>',
+          recommendation: '<i class="fas fa-lightbulb"></i>',
+          prediction: '<i class="fas fa-crystal-ball"></i>',
+          anomaly: '<i class="fas fa-exclamation-triangle"></i>',
+        };
+        return icons[type] || '<i class="fas fa-info-circle"></i>';
+      }
+
+      function getImpactColor(impact) {
+        const colors = {
+          low: "secondary",
+          medium: "warning",
+          high: "danger",
+          critical: "danger",
+        };
+        return colors[impact] || "secondary";
+      }
+
+      function showLoading(elementId) {
+        document.getElementById(elementId).classList.add("show");
+      }
+
+      function hideLoading(elementId) {
+        document.getElementById(elementId).classList.remove("show");
+      }
+
+      function showError(message) {
+        showNotification(message, "danger");
+      }
+
+      function showNotification(message, type = "info") {
+        // Implementar notificação toast
+        console.log(`📢 ${message}`);
+      }
+
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
+
+      function updateUI() {
+        // Atualizar timestamp
+        const now = new Date();
+        console.log(`📊 Dashboard atualizado em: ${now.toLocaleString()}`);
+      }
+    </script>
+  </body>
+</html>

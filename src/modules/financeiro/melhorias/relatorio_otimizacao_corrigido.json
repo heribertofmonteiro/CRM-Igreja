@@ -1,0 +1,28 @@
+{
+    "data": "2026-01-08 10:46:55",
+    "indices_criados": {
+        "0": "PRIMARY",
+        "1": "order_payments_processed_by_foreign",
+        "2": "order_payments_order_id_status_index",
+        "4": "order_payments_transaction_id_status_index",
+        "6": "order_payments_paid_at_index",
+        "7": "order_payments_tenant_id_foreign",
+        "8": "idx_order_payments_payment_method",
+        "10": "idx_order_payments_status_date"
+    },
+    "queries_otimizadas": {
+        "dashboard": {
+            "tempo_otimizado": 45.2,
+            "melhoria_percentual": 100
+        }
+    },
+    "melhorias_obtidas": [],
+    "recomendacoes": [
+        "Implementar cache para queries frequentes",
+        "Usar PARTITION para tabelas grandes",
+        "Considerar READ COMMITTED para relat\u00f3rios",
+        "Implementar query cache no n\u00edvel de aplica\u00e7\u00e3o",
+        "Otimizar configura\u00e7\u00f5es do MySQL (innodb_buffer_pool_size)",
+        "Monitorar performance com MySQL Slow Query Log"
+    ]
+}

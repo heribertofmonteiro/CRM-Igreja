@@ -1,0 +1,50 @@
+{
+    "versao": "2.0",
+    "periodo": "Pr\u00f3ximos 3 meses",
+    "acoes": [
+        {
+            "id": "expand_reports",
+            "titulo": "Expandir Funcionalidades de Relat\u00f3rios",
+            "descricao": "Adicionar novos tipos de relat\u00f3rios e personaliza\u00e7\u00e3o",
+            "prioridade": "alta",
+            "responsavel": "Backend Team",
+            "prazo": "8 semanas",
+            "kpi": "Aumentar uso de relat\u00f3rios em 25%",
+            "recursos": "Backend Developer, Database Specialist",
+            "dependencias": "Defini\u00e7\u00e3o de novos relat\u00f3rios"
+        },
+        {
+            "id": "feature_requests",
+            "titulo": "Implementar Feature Requests Mais Votados",
+            "descricao": "Priorizar e implementar as funcionalidades mais solicitadas",
+            "prioridade": "media",
+            "responsavel": "Product Team",
+            "prazo": "10 semanas",
+            "kpi": "Implementar top 5 feature requests",
+            "recursos": "Full Stack Developer",
+            "dependencias": "An\u00e1lise de viabilidade t\u00e9cnica"
+        },
+        {
+            "id": "training_docs",
+            "titulo": "Criar Treinamento e Documenta\u00e7\u00e3o",
+            "descricao": "Desenvolver materiais de treinamento e documenta\u00e7\u00e3o detalhada",
+            "prioridade": "media",
+            "responsavel": "Content Team",
+            "prazo": "4 semanas",
+            "kpi": "Reduzir d\u00favidas de usu\u00e1rios em 40%",
+            "recursos": "Technical Writer, Instructional Designer",
+            "dependencias": "Nenhuma"
+        },
+        {
+            "id": "continuous_monitoring",
+            "titulo": "Implementar Monitoramento Cont\u00ednuo",
+            "descricao": "Sistema automatizado para coletar feedback e m\u00e9tricas",
+            "prioridade": "baixa",
+            "responsavel": "DevOps Team",
+            "prazo": "3 semanas",
+            "kpi": "Coletar feedback de 100% dos usu\u00e1rios ativos",
+            "recursos": "DevOps Engineer",
+            "dependencias": "Defini\u00e7\u00e3o de m\u00e9tricas"
+        }
+    ]
+}

@@ -1,0 +1,896 @@
+@use "sass:meta";
+
+/*! ChurchCRM Futuristic Theme - Design Moderno e Arrojado
+ * Bootstrap 5 + Tailwind CSS com cores vivas e design futurista
+ * Interface limpa, moderna e impactante visualmente
+ */
+
+// Import Bootstrap 5
+@import "~bootstrap/scss/bootstrap";
+
+// Import Tailwind CSS
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+// Import bibliotecas externas essenciais
+@import "external/bootstrap-datepicker/bootstrap-datepicker.standalone.min.css";
+@import "external/datatables/datatables.min.css";
+@import "external/select2/select2.min.css";
+
+// Import componentes personalizados essenciais
+@include meta.load-css("scss/utility-classes");
+@include meta.load-css("scss/ui-components");
+@include meta.load-css("scss/dropdowns");
+@include meta.load-css("scss/forms");
+@include meta.load-css("scss/tables");
+@include meta.load-css("scss/profileImage");
+@include meta.load-css("scss/shortConfig");
+@include meta.load-css("scss/leftNav");
+@include meta.load-css("scss/imageOverlay");
+@include meta.load-css("scss/maps");
+@include meta.load-css("scss/spacing");
+@include meta.load-css("scss/SystemNotifications");
+@include meta.load-css("scss/cart");
+@include meta.load-css("scss/calendars");
+
+// Variáveis do tema futurista
+:root {
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --gradient-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --gradient-dark: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+    --neon-blue: #00d4ff;
+    --neon-purple: #9d4edd;
+    --neon-pink: #ff006e;
+    --neon-green: #00ff88;
+    --neon-yellow: #ffff00;
+}
+
+// Reset e estilos globais
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        "Inter",
+        system-ui,
+        -apple-system,
+        sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #ffffff;
+    overflow-x: hidden;
+
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112L96,128L144,144L192,160L240,176L288,192L336,208L384,224L432,240L480,256L528,272L576,288L624,304L672,320L720,336L768,352L816,368L864,384L912,400L960,416L1008,432L1056,448L1104,464L1152,480L1200,496L1248,512L1296,528L1344,544L1392,560L1440,576L1440,320L1392,304L1344,288L1296,272L1248,256L1200,240L1152,224L1104,208L1056,192L1008,176L960,160L912,144L864,128L816,112L768,96L720,80L672,64L624,48L576,32L528,16L480,0L432,16L384,32L336,48L288,64L240,80L192,96L144,112L96,128L48,144L0,160Z"></path></svg>')
+            no-repeat;
+        background-size: cover;
+        pointer-events: none;
+        z-index: -1;
+    }
+}
+
+// Estrutura principal
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    background: transparent;
+}
+
+// Header futurista
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    z-index: 1031;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+
+    .navbar {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 2rem;
+
+        .navbar-brand {
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: float 6s ease-in-out infinite;
+
+            &:hover {
+                color: var(--neon-blue) !important;
+                text-shadow: 0 0 30px var(--neon-blue);
+            }
+        }
+
+        .nav > li > a {
+            color: #ffffff !important;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: var(--gradient-primary);
+                transition: left 0.3s ease;
+                z-index: -1;
+            }
+
+            &:hover,
+            &:focus {
+                background: var(--glass-bg);
+                color: var(--neon-blue) !important;
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+
+                &::before {
+                    left: 0;
+                }
+            }
+        }
+
+        // Dropdown menus
+        .dropdown-menu {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            box-shadow: var(--glass-shadow);
+
+            .dropdown-item {
+                color: #ffffff;
+                font-weight: 500;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: var(--gradient-primary);
+                    color: #ffffff;
+                    transform: translateX(5px);
+                }
+            }
+        }
+    }
+}
+
+// Sidebar futurista
+.main-sidebar {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 280px;
+    height: calc(100vh - 70px);
+    z-index: 1030;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--neon-blue);
+        border-radius: 3px;
+    }
+
+    .brand-link {
+        background: var(--gradient-primary);
+        border-bottom: 1px solid var(--glass-border);
+
+        .brand-image {
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        .brand-text {
+            color: #ffffff !important;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    .sidebar {
+        .nav > li > a {
+            color: #ffffff !important;
+            font-weight: 600;
+            padding: 1rem 1.5rem;
+            margin: 0.25rem 0;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent
+                );
+                transition: left 0.3s ease;
+                z-index: -1;
+            }
+
+            &:hover,
+            &:focus {
+                background: var(--glass-bg);
+                color: var(--neon-blue) !important;
+                transform: translateX(5px);
+                box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+
+                &::before {
+                    left: 0;
+                }
+            }
+
+            &.active {
+                background: var(--gradient-primary);
+                color: #ffffff !important;
+                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            }
+        }
+    }
+}
+
+// Content wrapper futurista
+.content-wrapper {
+    margin-left: 280px;
+    margin-top: 70px;
+    min-height: calc(100vh - 70px);
+    background: transparent;
+    padding: 0;
+    width: calc(100% - 280px);
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+// Header do conteúdo
+.content-header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0 0 2rem 2rem;
+    box-shadow: var(--glass-shadow);
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+        animation: gradient 8s ease infinite;
+    }
+
+    .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        font-size: 0.9rem;
+
+        li {
+            color: rgba(255, 255, 255, 0.7);
+
+            a {
+                color: var(--neon-blue);
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    color: var(--neon-purple);
+                    text-shadow: 0 0 10px var(--neon-purple);
+                }
+            }
+        }
+    }
+}
+
+// Área de conteúdo principal
+.content {
+    padding: 0 2.5rem 2.5rem;
+    max-width: none;
+    width: 100%;
+
+    .container-fluid {
+        padding: 0;
+        max-width: none;
+        width: 100%;
+    }
+
+    // Cards futuristas
+    .card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 1.5rem;
+        box-shadow: var(--glass-shadow);
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            animation: gradient 8s ease infinite;
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover);
+            border-color: var(--neon-blue);
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1.5rem 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.25rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+            color: #ffffff;
+        }
+    }
+
+    // Small boxes futuristas
+    .small-box {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 1.5rem;
+        box-shadow: var(--glass-shadow);
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            animation: gradient 8s ease infinite;
+        }
+
+        &:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--card-hover);
+        }
+
+        &.bg-info {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 212, 255, 0.1),
+                rgba(0, 212, 255, 0.05)
+            );
+            border-color: var(--neon-blue);
+
+            .icon {
+                color: var(--neon-blue);
+                text-shadow: 0 0 20px var(--neon-blue);
+            }
+        }
+
+        &.bg-success {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 255, 136, 0.1),
+                rgba(0, 255, 136, 0.05)
+            );
+            border-color: var(--neon-green);
+
+            .icon {
+                color: var(--neon-green);
+                text-shadow: 0 0 20px var(--neon-green);
+            }
+        }
+
+        &.bg-warning {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 0, 0.1),
+                rgba(255, 255, 0, 0.05)
+            );
+            border-color: var(--neon-yellow);
+
+            .icon {
+                color: var(--neon-yellow);
+                text-shadow: 0 0 20px var(--neon-yellow);
+            }
+        }
+
+        &.bg-danger {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 0, 110, 0.1),
+                rgba(255, 0, 110, 0.05)
+            );
+            border-color: var(--neon-pink);
+
+            .icon {
+                color: var(--neon-pink);
+                text-shadow: 0 0 20px var(--neon-pink);
+            }
+        }
+
+        .inner {
+            padding: 2rem;
+
+            h3 {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #ffffff;
+                margin-bottom: 0.5rem;
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            }
+
+            p {
+                font-size: 1rem;
+                color: rgba(255, 255, 255, 0.8);
+                margin: 0;
+            }
+        }
+
+        .icon {
+            font-size: 3rem;
+            top: 2rem;
+            right: 2rem;
+            transition: all 0.3s ease;
+        }
+    }
+
+    // Tabelas futuristas
+    .table-responsive {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 1.5rem;
+        box-shadow: var(--glass-shadow);
+        overflow: hidden;
+
+        .table {
+            background: transparent;
+            color: #ffffff;
+
+            thead th {
+                background: rgba(255, 255, 255, 0.1);
+                border-bottom: 2px solid var(--neon-blue);
+                color: #ffffff;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                padding: 1rem;
+
+                &:hover {
+                    background: rgba(0, 212, 255, 0.1);
+                }
+            }
+
+            tbody tr {
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    transform: scale(1.01);
+                    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+                }
+
+                td {
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    padding: 1rem;
+                    color: rgba(255, 255, 255, 0.9);
+                }
+            }
+        }
+    }
+
+    // Formulários futuristas
+    .form-group {
+        margin-bottom: 2rem;
+
+        label {
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-control {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            color: #ffffff;
+            transition: all 0.3s ease;
+
+            &:focus {
+                border-color: var(--neon-blue);
+                box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+                outline: none;
+                transform: translateY(-2px);
+            }
+
+            &::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+        }
+    }
+
+    // Botões futuristas
+    .btn {
+        border-radius: 2rem;
+        padding: 1rem 2rem;
+        font-weight: 700;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid transparent;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
+            border-color: var(--neon-blue);
+
+            &::before {
+                left: 0;
+            }
+        }
+
+        &.btn-primary {
+            background: var(--gradient-primary);
+            border-color: var(--neon-blue);
+            color: #ffffff;
+
+            &:hover {
+                color: #ffffff;
+                box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            }
+        }
+
+        &.btn-success {
+            background: var(--gradient-success);
+            border-color: var(--neon-green);
+            color: #ffffff;
+
+            &:hover {
+                box-shadow: 0 10px 25px rgba(0, 255, 136, 0.4);
+            }
+        }
+
+        &.btn-warning {
+            background: var(--gradient-warning);
+            border-color: var(--neon-yellow);
+            color: #ffffff;
+
+            &:hover {
+                box-shadow: 0 10px 25px rgba(255, 255, 0, 0.4);
+            }
+        }
+
+        &.btn-danger {
+            background: var(--gradient-danger);
+            border-color: var(--neon-pink);
+            color: #ffffff;
+
+            &:hover {
+                box-shadow: 0 10px 25px rgba(255, 0, 110, 0.4);
+            }
+        }
+
+        &.btn-lg {
+            padding: 1.25rem 2.5rem;
+            font-size: 1.25rem;
+        }
+
+        &.btn-sm {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+        }
+    }
+}
+
+// Footer futurista
+.main-footer {
+    margin-left: 280px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    padding: 2rem;
+    color: #ffffff;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+}
+
+// Sidebar colapsada
+.sidebar-collapse {
+    .main-sidebar {
+        transform: translateX(-280px);
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .main-footer {
+        margin-left: 0;
+    }
+}
+
+// Responsividade avançada
+@media (max-width: 1200px) {
+    .content {
+        padding: 0 2rem 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-sidebar {
+        width: 260px;
+    }
+
+    .content-wrapper {
+        margin-left: 260px;
+        width: calc(100% - 260px);
+    }
+
+    .main-footer {
+        margin-left: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-sidebar {
+        transform: translateX(-280px);
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .main-footer {
+        margin-left: 0;
+    }
+
+    .sidebar-open {
+        .main-sidebar {
+            transform: translateX(0);
+        }
+    }
+
+    .content {
+        padding: 0 1.5rem 1.5rem;
+
+        .content-header {
+            padding: 1.5rem;
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .card {
+            margin-bottom: 1.5rem;
+
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+
+        .small-box {
+            margin-bottom: 1.5rem;
+
+            .inner {
+                padding: 1.5rem;
+
+                h3 {
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .main-header {
+        height: 60px;
+
+        .navbar {
+            padding: 0 1rem;
+
+            .navbar-brand {
+                font-size: 1.25rem;
+            }
+        }
+    }
+
+    .main-sidebar {
+        top: 60px;
+        height: calc(100vh - 60px);
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .content-wrapper {
+        margin-top: 60px;
+        min-height: calc(100vh - 60px);
+    }
+
+    .content {
+        padding: 0 1rem 1rem;
+
+        .content-header {
+            padding: 1rem;
+            text-align: center;
+
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+
+        .card {
+            margin-bottom: 1rem;
+
+            .card-header {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+
+            .card-body {
+                padding: 1rem;
+            }
+        }
+
+        .small-box {
+            text-align: center;
+
+            .inner {
+                padding: 1rem;
+                text-align: center;
+
+                h3 {
+                    font-size: 1.75rem;
+                }
+            }
+
+            .icon {
+                position: relative;
+                top: auto;
+                right: auto;
+                display: block;
+                margin: 0 auto 0.5rem;
+            }
+        }
+
+        .btn {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+    }
+}
+
+// Animações e efeitos especiais
+@keyframes pulse-glow {
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 212, 255, 0.8);
+    }
+}
+
+// Scrollbar personalizado
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neon-blue);
+    border-radius: 4px;
+
+    &:hover {
+        background: var(--neon-purple);
+    }
+}
+
+// Loading animations
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--glass-border);
+    border-radius: 50%;
+    border-top-color: var(--neon-blue);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

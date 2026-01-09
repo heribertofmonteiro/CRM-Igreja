@@ -71,6 +71,62 @@ class MinisterioSecurity
     ];
     
     /**
+     * Verificar se um papel existe
+     */
+    public static function papelExiste($papel)
+    {
+        $papeisValidos = [
+            self::ROLE_ADMIN,
+            self::ROLE_LIDER,
+            self::ROLE_COORDENADOR,
+            self::ROLE_MEMBRO,
+            self::ROLE_CONVIDADO
+        ];
+        
+        return in_array($papel, $papeisValidos);
+    }
+    
+    /**
+     * Verificar se o usuário pode acessar um recurso específico
+     */
+    public static function podeAcessar($recurso, $acao = null)
+    {
+        // Mapear recursos para permissões
+        $mapeamento = [
+            'ministerio' => [
+                'ver' => self::PERM_VER_MINISTERIOS,
+                'criar' => self::PERM_CRIAR_MINISTERIO,
+                'editar' => self::PERM_EDITAR_MINISTERIO,
+                'excluir' => self::PERM_EXCLUIR_MINISTERIO
+            ],
+            'mensagem' => [
+                'ver' => self::PERM_VER_MINISTERIOS,
+                'enviar' => self::PERM_ENVIAR_MENSAGENS
+            ],
+            'dashboard' => [
+                'ver' => self::PERM_VER_DASHBOARD
+            ]
+        ];
+        
+        if (!isset($mapeamento[$recurso])) {
+            return false;
+        }
+        
+        if ($acao && isset($mapeamento[$recurso][$acao])) {
+            return self::temPermissao($mapeamento[$recurso][$acao]);
+        }
+        
+        // Se não especificar ação, verificar qualquer permissão do recurso
+        foreach ($mapeamento[$recurso] as $permissao) {
+            if (self::temPermissao($permissao)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
      * Verifica se o usuário atual tem permissão para uma ação
      */
     public static function temPermissao($permissao)

@@ -11,7 +11,8 @@ use Slim\Views\PhpRenderer;
 $app->group('/ministerio', function (RouteCollectorProxy $group): void {
     $group->get('', 'ministerioDashboard');
     $group->get('/', 'ministerioDashboard');
-    $group->get('/{id}/detalhes', 'ministerioDetalhes');
+    // Removido: $group->get('/{id}/detalhes', 'ministerioDetalhes');
+    // Esta rota está duplicada no módulo modules/ministerio/v2/routes/ministerio.php
 })->add(AdminRoleAuthMiddleware::class);
 
 function ministerioDashboard($request, $response, $args): Response
@@ -26,17 +27,7 @@ function ministerioDashboard($request, $response, $args): Response
     return $renderer->render($response, 'dashboard.php', $pageArgs);
 }
 
-function ministerioDetalhes($request, $response, array $args): Response
-{
-    $renderer = new PhpRenderer('templates/ministerio/');
-
-    $pageArgs = [
-        'sRootPath'  => SystemURLs::getRootPath(),
-        'sPageTitle' => gettext('Detalhes do Ministério'),
-        'ministerioId' => (int)$args['id'],
-    ];
-
-    return $renderer->render($response, 'detalhes.php', $pageArgs);
-}
+// Função ministerioDetalhes removida - está implementada no módulo
+// Acesse via: /v2/ministerio/{id}/detalhes (API endpoint)
 
 

@@ -6,7 +6,7 @@ use ChurchCRM\dto\Cart;
 use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Service\TaskService;
-use ChurchCRM\view\MenuRenderer;
+use ChurchCRM\view\MenuRendererImproved;
 
 $taskService = new TaskService();
 
@@ -201,7 +201,7 @@ $MenuFirst = 1;
 
         <nav class="mt-2">
             <ul class="nav nav-pills  nav-child-indent nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <?php MenuRenderer::renderMenu(); ?>
+        <?php MenuRendererImproved::renderMenu(); ?>
             </ul>
         </nav>
     </div>

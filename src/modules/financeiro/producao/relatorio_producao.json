@@ -1,0 +1,241 @@
+{
+    "data": "2026-01-08 11:20:12",
+    "ambiente": "producao",
+    "total_testes": 46,
+    "testes_passaram": 42,
+    "testes_falharam": 4,
+    "taxa_sucesso": 91.3,
+    "status": "reprovado",
+    "detalhes": [
+        {
+            "description": "PHP >= 8.0.0 (Atual: 8.3.6)",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Extens\u00e3o PHP: pdo",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Extens\u00e3o PHP: pdo_mysql",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Extens\u00e3o PHP: json",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Extens\u00e3o PHP: mbstring",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Extens\u00e3o PHP: curl",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Limite de mem\u00f3ria >= 256M (Atual: -1)",
+            "passed": false,
+            "status": "\u274c FALHOU"
+        },
+        {
+            "description": "Tempo m\u00e1ximo execu\u00e7\u00e3o >= 30s (Atual: 0s)",
+            "passed": false,
+            "status": "\u274c FALHOU"
+        },
+        {
+            "description": "Diret\u00f3rio grav\u00e1vel: cache",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Diret\u00f3rio grav\u00e1vel: exports",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Diret\u00f3rio grav\u00e1vel: logs",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Conex\u00e3o com banco ativa",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Tabela existe: payment_methods",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Tabela existe: order_payments",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Tabela existe: refunds",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "\u00cdndice existe: idx_order_payments_payment_method",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "\u00cdndice existe: idx_order_payments_status_date",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Query simples < 100ms (Atual: 3.69ms)",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Dashboard otimizado < 50ms (Atual: 28.54ms)",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Cache < 10ms (Atual: 16.9ms)",
+            "passed": false,
+            "status": "\u274c FALHOU"
+        },
+        {
+            "description": "Relat\u00f3rio < 100ms (Atual: 151.6ms)",
+            "passed": false,
+            "status": "\u274c FALHOU"
+        },
+        {
+            "description": "Zero erros em teste de carga (Erros: 0)",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Tempo m\u00e9dio < 50ms (Atual: 4.48ms)",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Percentil 95 < 100ms (Atual: 19.37ms)",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "SQL Injection bloqueado: '; DROP TABLE paymen...",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "SQL Injection bloqueado: ' OR '1'='1...",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "SQL Injection bloqueado: '; DELETE FROM order...",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "SQL Injection bloqueado: ' UNION SELECT * FRO...",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "XSS escapado: <script>alert('xss')...",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "XSS escapado: javascript:alert('xs...",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "XSS escapado: <img src=x onerror=a...",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "XSS escapado: ';alert('xss');\/\/...",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Middleware de seguran\u00e7a financeiro existe",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Usa classes do namespace ChurchCRM",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Usa SystemConfig do ChurchCRM",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "API usa DepositService do ChurchCRM",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Template usa AuthenticationManager",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Cache escrita\/leitura funcionando",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Cache mant\u00e9m integridade dos dados",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Cache expira corretamente",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Relat\u00f3rio fluxo_caixa retorna array",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Relat\u00f3rio fluxo_caixa < 100ms (Atual: 28.57ms)",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Relat\u00f3rio metodos_pagamento retorna array",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Relat\u00f3rio metodos_pagamento < 100ms (Atual: 40.45ms)",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Relat\u00f3rio tendencias retorna array",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        },
+        {
+            "description": "Relat\u00f3rio tendencias < 100ms (Atual: 1.67ms)",
+            "passed": true,
+            "status": "\u2705 PASSOU"
+        }
+    ]
+}

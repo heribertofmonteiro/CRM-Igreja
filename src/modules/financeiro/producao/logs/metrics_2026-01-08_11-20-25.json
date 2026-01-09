@@ -1,0 +1,74 @@
+{
+    "banco": {
+        "dashboard": {
+            "tempo_medio": 0.029692840576171876,
+            "tempo_max": 0.09552001953125,
+            "tempo_min": 0.0006899833679199219,
+            "registros": 5,
+            "execucoes": 5
+        },
+        "relatorio": {
+            "tempo_medio": 0.005650806427001953,
+            "tempo_max": 0.013030052185058594,
+            "tempo_min": 0.0007679462432861328,
+            "registros": 0,
+            "execucoes": 5
+        },
+        "metodos": {
+            "tempo_medio": 0.0007477283477783203,
+            "tempo_max": 0.0012409687042236328,
+            "tempo_min": 0.00047588348388671875,
+            "registros": 5,
+            "execucoes": 5
+        },
+        "status": {
+            "connections": 3741,
+            "slow_queries": 0
+        }
+    },
+    "sistema": {
+        "memoria": {
+            "atual": 2097152,
+            "pico": 2097152,
+            "atual_formatado": "2 MB",
+            "pico_formatado": "2 MB"
+        },
+        "cpu": {
+            "load_1min": 2.44580078125,
+            "load_5min": 1.56005859375,
+            "load_15min": 1.4169921875
+        },
+        "disco": {
+            "cache_size": 22841,
+            "cache_size_formatado": "22.31 KB"
+        },
+        "tempo_execucao": {
+            "atual": 1.0073399543762207,
+            "limite_php": "0"
+        }
+    },
+    "aplicacao": {
+        "cache": {
+            "total_arquivos": 11,
+            "tamanho_total": 14649,
+            "tamanho_formatado": "14.31 KB",
+            "arquivos_expirados": 1,
+            "taxa_expirados": 9.09
+        },
+        "relatorios": {
+            "dashboard_tempo": 0.03297710418701172,
+            "dashboard_cache_hit": false
+        },
+        "uso": {
+            "dias_ativos": 0,
+            "total_transacoes": 0,
+            "valor_total": 0,
+            "media_diaria": 0
+        }
+    },
+    "analise": {
+        "problemas": [],
+        "status_geral": "otimo"
+    },
+    "timestamp": "2026-01-08 11:20:25"
+}

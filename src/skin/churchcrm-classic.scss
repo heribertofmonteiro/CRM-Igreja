@@ -1,0 +1,513 @@
+@use "sass:meta";
+
+/*! ChurchCRM Classic Theme - Design Original
+ * Mantendo a aparência clássica e familiar do ChurchCRM
+ * Sem atualizações visuais modernas que alteram a experiência original
+ */
+
+// Import Bootstrap 5 (mantido para funcionalidade)
+@import "~bootstrap/scss/bootstrap";
+
+// Import bibliotecas externas essenciais
+@import "external/bootstrap-datepicker/bootstrap-datepicker.standalone.min.css";
+@import "external/datatables/datatables.min.css";
+@import "external/select2/select2.min.css";
+
+// AdminLTE 3 (versão mais clássica e estável)
+@import "external/adminlte/adminlte.min.css";
+
+// Import componentes personalizados essenciais
+@include meta.load-css("scss/utility-classes");
+@include meta.load-css("scss/ui-components");
+@include meta.load-css("scss/dropdowns");
+@include meta.load-css("scss/forms");
+@include meta.load-css("scss/tables");
+@include meta.load-css("scss/profileImage");
+@include meta.load-css("scss/shortConfig");
+@include meta.load-css("scss/leftNav");
+@include meta.load-css("scss/imageOverlay");
+@include meta.load-css("scss/maps");
+@include meta.load-css("scss/spacing");
+@include meta.load-css("scss/SystemNotifications");
+@include meta.load-css("scss/cart");
+@include meta.load-css("scss/calendars");
+
+// Import correções de layout
+@import "layout-fix.scss";
+
+// Estilos clássicos do ChurchCRM
+body {
+    background-color: #f5f5f5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}
+
+// Header clássico
+.main-header {
+    background-color: #3c8dbc;
+    border-bottom: 1px solid #367fa9;
+
+    .navbar {
+        background-color: #3c8dbc !important;
+        border: none !important;
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .nav > li > a {
+            color: #fff !important;
+
+            &:hover,
+            &:focus {
+                background-color: #367fa9 !important;
+                color: #fff !important;
+            }
+        }
+    }
+}
+
+// Sidebar clássica
+.main-sidebar {
+    background-color: #222d32 !important;
+
+    .sidebar {
+        background-color: #222d32 !important;
+
+        > li > a {
+            color: #b8c7ce !important;
+            border-left: 3px solid transparent;
+
+            &:hover,
+            &:focus {
+                color: #fff !important;
+                background-color: #1e282c !important;
+                border-left-color: #3c8dbc !important;
+            }
+
+            &.active {
+                color: #fff !important;
+                background-color: #1e282c !important;
+                border-left-color: #3c8dbc !important;
+            }
+        }
+    }
+}
+
+// Content wrapper clássico
+.content-wrapper {
+    background-color: #ecf0f5;
+    min-height: 100vh;
+    margin-left: 0;
+    padding-top: 0;
+}
+
+// Correção do layout principal
+.wrapper {
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+// Corrigir posicionamento da sidebar
+.main-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1030;
+    transition: transform 0.3s ease-in-out;
+}
+
+// Corrigir posicionamento do header
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1031;
+    margin-left: 0;
+}
+
+// Ajustar content-wrapper para não ficar sob o header e sidebar
+.content-wrapper {
+    margin-top: 57px; // Altura do header
+    margin-left: 250px; // Largura da sidebar
+    min-height: calc(100vh - 57px);
+    transition: margin-left 0.3s ease-in-out;
+}
+
+// Quando sidebar está colapsada
+.sidebar-collapse {
+    .main-sidebar {
+        transform: translateX(-250px);
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+    }
+}
+
+// Corrigir footer
+.main-footer {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar-collapse .main-footer {
+    margin-left: 0;
+}
+
+// Cards clássicos
+.card {
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24);
+    border: none;
+    border-radius: 2px;
+
+    .card-header {
+        background-color: #fff;
+        border-bottom: 1px solid #d2d6de;
+        padding: 10px 15px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .card-body {
+        background-color: #fff;
+        padding: 15px;
+    }
+}
+
+// Botões clássicos
+.btn {
+    border-radius: 3px;
+    font-weight: 500;
+    text-transform: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    &.btn-primary {
+        background-color: #3c8dbc !important;
+        border-color: #367fa9 !important;
+
+        &:hover,
+        &:focus {
+            background-color: #367fa9 !important;
+            border-color: #204d74 !important;
+        }
+    }
+
+    &.btn-secondary {
+        background-color: #d2d6de !important;
+        border-color: #c2c6d0 !important;
+
+        &:hover,
+        &:focus {
+            background-color: #c2c6d0 !important;
+            border-color: #ababae !important;
+        }
+    }
+
+    &.btn-success {
+        background-color: #00a65a !important;
+        border-color: #008d4c !important;
+
+        &:hover,
+        &:focus {
+            background-color: #008d4c !important;
+            border-color: #006d3a !important;
+        }
+    }
+
+    &.btn-warning {
+        background-color: #f39c12 !important;
+        border-color: #e08e0b !important;
+
+        &:hover,
+        &:focus {
+            background-color: #e08e0b !important;
+            border-color: #c67605 !important;
+        }
+    }
+
+    &.btn-danger {
+        background-color: #dd4b39 !important;
+        border-color: #d73925 !important;
+
+        &:hover,
+        &:focus {
+            background-color: #d73925 !important;
+            border-color: #c12e2a !important;
+        }
+    }
+}
+
+// Small boxes clássicos (dashboard)
+.small-box {
+    border-radius: 2px;
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24);
+    border: none;
+
+    &.bg-info {
+        background-color: #00c0ef !important;
+        color: #fff !important;
+
+        .icon {
+            background-color: #00acd6 !important;
+        }
+    }
+
+    &.bg-success {
+        background-color: #00a65a !important;
+        color: #fff !important;
+
+        .icon {
+            background-color: #008d4c !important;
+        }
+    }
+
+    &.bg-warning {
+        background-color: #f39c12 !important;
+        color: #fff !important;
+
+        .icon {
+            background-color: #e08e0b !important;
+        }
+    }
+
+    &.bg-danger {
+        background-color: #dd4b39 !important;
+        color: #fff !important;
+
+        .icon {
+            background-color: #d73925 !important;
+        }
+    }
+
+    .inner {
+        h3 {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+            white-space: nowrap;
+        }
+
+        p {
+            font-size: 13px;
+            margin: 0;
+        }
+    }
+}
+
+// Tabelas clássicas
+.table {
+    background-color: #fff !important;
+
+    thead {
+        background-color: #f5f5f5 !important;
+
+        th {
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #ddd !important;
+        }
+    }
+
+    tbody {
+        tr {
+            &:hover {
+                background-color: #f5f5f5 !important;
+            }
+
+            td {
+                border-top: 1px solid #f4f4f4 !important;
+            }
+        }
+    }
+}
+
+// Formulários clássicos
+.form-control {
+    border: 1px solid #d2d6de !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    &:focus {
+        border-color: #3c8dbc !important;
+        box-shadow:
+            inset 0 1px 1px rgba(0, 0, 0, 0.075),
+            0 0 8px rgba(60, 141, 188, 0.6) !important;
+    }
+}
+
+// Tabs clássicas
+.nav-tabs {
+    border-bottom: 1px solid #ddd !important;
+
+    > li {
+        > a {
+            color: #333 !important;
+            border: 1px solid transparent !important;
+            border-radius: 4px 4px 0 0 !important;
+
+            &:hover,
+            &:focus {
+                background-color: #eee !important;
+                border-color: #ddd !important;
+                color: #333 !important;
+            }
+
+            &.active {
+                color: #555 !important;
+                background-color: #fff !important;
+                border: 1px solid #ddd !important;
+                border-bottom-color: transparent !important;
+            }
+        }
+    }
+}
+
+// Badges clássicos
+.badge {
+    font-size: 12px;
+    font-weight: normal;
+
+    &.badge-success {
+        background-color: #00a65a !important;
+    }
+
+    &.badge-info {
+        background-color: #00c0ef !important;
+    }
+
+    &.badge-warning {
+        background-color: #f39c12 !important;
+    }
+
+    &.badge-danger {
+        background-color: #dd4b39 !important;
+    }
+}
+
+// Breadcrumbs clássicos
+.breadcrumb {
+    background-color: transparent !important;
+    border: none !important;
+    margin-bottom: 0 !important;
+
+    > li {
+        + li:before {
+            content: "/" !important;
+            color: #ccc !important;
+        }
+
+        > a {
+            color: #3c8dbc !important;
+
+            &:hover,
+            &:focus {
+                color: #367fa9 !important;
+            }
+        }
+    }
+}
+
+// Corrigir cores e remover sombras excessivas
+.modal {
+    .modal-content {
+        border: none;
+        border-radius: 3px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+        background-color: #fff;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .modal-footer {
+        background-color: #fff;
+        border-top: 1px solid #e5e5e5;
+    }
+}
+
+// Remover animações excessivas
+.fade {
+    transition: opacity 0.15s linear;
+}
+
+// Cores clássicas do ChurchCRM
+.text-primary {
+    color: #3c8dbc !important;
+}
+
+.text-success {
+    color: #00a65a !important;
+}
+
+.text-warning {
+    color: #f39c12 !important;
+}
+
+.text-danger {
+    color: #dd4b39 !important;
+}
+
+.text-info {
+    color: #00c0ef !important;
+}
+
+// Ajustes finais para manter o design original
+.content {
+    padding: 15px;
+}
+
+.content-header {
+    background-color: #fff;
+    border-bottom: 1px solid #d2d6de;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+// Garantir que elementos AdminLTE mantenham aparência clássica
+.main-header .navbar .sidebar-toggle {
+    color: #fff !important;
+
+    &:hover {
+        background-color: #367fa9 !important;
+    }
+}
+
+// Remover gradientes e sombras modernas
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+// Manter tipografia clássica
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+    color: #333;
+}
+
+// Cores de fundo clássicas
+.bg-gray {
+    background-color: #f5f5f5 !important;
+}
+
+.bg-light-blue {
+    background-color: #3c8dbc !important;
+    color: #fff !important;
+}

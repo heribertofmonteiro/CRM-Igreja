@@ -1,0 +1,497 @@
+// Sidebar Moderna - Design Melhorado e Agrupado
+// Cores vivas, organização por afinidade e design moderno
+
+// Variáveis do sidebar
+:root {
+    --sidebar-bg: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+    --sidebar-item-bg: rgba(255, 255, 255, 0.05);
+    --sidebar-item-hover: rgba(255, 255, 255, 0.15);
+    --sidebar-item-active: rgba(255, 255, 255, 0.25);
+    --sidebar-text: #ffffff;
+    --sidebar-text-muted: rgba(255, 255, 255, 0.7);
+    --sidebar-border: rgba(255, 255, 255, 0.1);
+    --sidebar-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+    // Cores por categoria
+    --color-dashboard: #667eea;
+    --color-people: #f093fb;
+    --color-calendar: #4facfe;
+    --color-ministry: #43e97b;
+    --color-education: #fa709a;
+    --color-finance: #f59e0b;
+    --color-communication: #00d4ff;
+    --color-reports: #8b5cf6;
+    --color-admin: #ef4444;
+    --color-links: #6b7280;
+}
+
+// Sidebar principal
+.main-sidebar {
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
+    box-shadow: var(--sidebar-shadow);
+
+    // Brand section melhorada
+    .brand-link {
+        background: linear-gradient(
+            135deg,
+            var(--color-dashboard) 0%,
+            var(--color-people) 100%
+        );
+        border-bottom: 2px solid var(--sidebar-border);
+        padding: 1.25rem 1.5rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .brand-image {
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .brand-text {
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    // Navigation principal
+    .nav-sidebar {
+        padding: 1rem 0;
+
+        // Item principal do menu
+        .nav-item {
+            margin-bottom: 0.25rem;
+
+            .nav-link {
+                color: var(--sidebar-text);
+                padding: 0.875rem 1.5rem;
+                margin: 0 0.5rem;
+                border-radius: 0.75rem;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+
+                // Efeito de brilho no hover
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(
+                        90deg,
+                        transparent,
+                        rgba(255, 255, 255, 0.1),
+                        transparent
+                    );
+                    transition: left 0.5s ease;
+                    z-index: -1;
+                }
+
+                &:hover {
+                    background: var(--sidebar-item-hover);
+                    color: #ffffff;
+                    transform: translateX(5px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+                    &::before {
+                        left: 100%;
+                    }
+                }
+
+                &.active {
+                    background: var(--sidebar-item-active);
+                    color: #ffffff;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                }
+
+                // Ícones melhorados
+                .nav-icon {
+                    width: 20px;
+                    margin-right: 0.75rem;
+                    font-size: 1.125rem;
+                    transition: all 0.3s ease;
+
+                    // Cores por categoria
+                    &.fa-tachometer-alt {
+                        color: var(--color-dashboard);
+                    }
+                    &.fa-user-group {
+                        color: var(--color-people);
+                    }
+                    &.fa-calendar-alt {
+                        color: var(--color-calendar);
+                    }
+                    &.fa-hands-helping {
+                        color: var(--color-ministry);
+                    }
+                    &.fa-graduation-cap {
+                        color: var(--color-education);
+                    }
+                    &.fa-money-bill-wave {
+                        color: var(--color-finance);
+                    }
+                    &.fa-envelope {
+                        color: var(--color-communication);
+                    }
+                    &.fa-chart-line {
+                        color: var(--color-reports);
+                    }
+                    &.fa-tools {
+                        color: var(--color-admin);
+                    }
+                    &.fa-link {
+                        color: var(--color-links);
+                    }
+                }
+
+                // Texto do item
+                p {
+                    margin: 0;
+                    font-weight: 600;
+                    font-size: 0.875rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    span {
+                        &.right {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+
+                            // Badges melhorados
+                            .badge {
+                                font-size: 0.625rem;
+                                padding: 0.25rem 0.5rem;
+                                border-radius: 1rem;
+                                font-weight: 700;
+                                text-transform: uppercase;
+                                letter-spacing: 0.025em;
+
+                                &.bg-primary {
+                                    background: var(--color-primary);
+                                }
+                                &.bg-success {
+                                    background: var(--color-success);
+                                }
+                                &.bg-warning {
+                                    background: var(--color-warning);
+                                }
+                                &.bg-danger {
+                                    background: var(--color-danger);
+                                }
+                                &.bg-info {
+                                    background: var(--color-info);
+                                }
+                                &.bg-dark {
+                                    background: var(--color-dark);
+                                }
+                                &.bg-green {
+                                    background: #10b981;
+                                }
+                                &.bg-blue {
+                                    background: #3b82f6;
+                                }
+                            }
+
+                            // Setas
+                            i.fa-angle-left {
+                                font-size: 0.75rem;
+                                transition: transform 0.3s ease;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Submenu (menu aberto)
+            &.menu-open {
+                > .nav-link {
+                    background: var(--sidebar-item-active);
+                    color: #ffffff;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+                    i.fa-angle-left {
+                        transform: rotate(-90deg);
+                    }
+                }
+            }
+        }
+
+        // Submenu treeview
+        .nav-treeview {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0.75rem;
+            margin: 0.25rem 0.5rem 0.5rem 2rem;
+            padding: 0.5rem 0;
+            border: 1px solid var(--sidebar-border);
+
+            .nav-item {
+                margin-bottom: 0.125rem;
+
+                .nav-link {
+                    color: var(--sidebar-text-muted);
+                    padding: 0.625rem 1rem;
+                    margin: 0;
+                    border-radius: 0.5rem;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        background: var(--sidebar-item-hover);
+                        color: #ffffff;
+                        transform: translateX(3px);
+                    }
+
+                    &.active {
+                        background: var(--sidebar-item-active);
+                        color: #ffffff;
+                    }
+
+                    // Ícones dos submenus
+                    .nav-icon {
+                        width: 16px;
+                        margin-right: 0.5rem;
+                        font-size: 0.875rem;
+                        color: var(--sidebar-text-muted);
+                    }
+
+                    p {
+                        font-size: 0.8rem;
+
+                        span.right {
+                            .badge {
+                                font-size: 0.5625rem;
+                                padding: 0.1875rem 0.375rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Seção de tarefas melhorada (control sidebar)
+.control-sidebar {
+    background: linear-gradient(180deg, #2a5298 0%, #1e3c72 100%);
+    border-left: 1px solid var(--sidebar-border);
+    box-shadow: var(--sidebar-shadow);
+
+    // Header da barra de tarefas
+    .control-sidebar-header {
+        background: rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid var(--sidebar-border);
+        padding: 1rem;
+
+        h3 {
+            color: var(--sidebar-text);
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin: 0;
+            text-align: center;
+        }
+    }
+
+    // Conteúdo da barra de tarefas
+    .tab-content {
+        padding: 1rem;
+
+        .tab-pane {
+            // Cards de tarefas
+            .task-card {
+                background: var(--sidebar-item-bg);
+                border: 1px solid var(--sidebar-border);
+                border-radius: 0.75rem;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: var(--sidebar-item-hover);
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                }
+
+                .task-title {
+                    color: var(--sidebar-text);
+                    font-weight: 600;
+                    font-size: 0.875rem;
+                    margin-bottom: 0.5rem;
+                }
+
+                .task-description {
+                    color: var(--sidebar-text-muted);
+                    font-size: 0.75rem;
+                    line-height: 1.4;
+                }
+
+                .task-meta {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 0.75rem;
+
+                    .task-date {
+                        color: var(--sidebar-text-muted);
+                        font-size: 0.6875rem;
+                    }
+
+                    .task-priority {
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 1rem;
+                        font-size: 0.625rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+
+                        &.high {
+                            background: var(--color-danger);
+                            color: #ffffff;
+                        }
+
+                        &.medium {
+                            background: var(--color-warning);
+                            color: #000000;
+                        }
+
+                        &.low {
+                            background: var(--color-success);
+                            color: #ffffff;
+                        }
+                    }
+                }
+            }
+
+            // Lista de tarefas
+            .task-list {
+                .task-item {
+                    background: var(--sidebar-item-bg);
+                    border: 1px solid var(--sidebar-border);
+                    border-radius: 0.5rem;
+                    padding: 0.75rem;
+                    margin-bottom: 0.5rem;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        background: var(--sidebar-item-hover);
+                        transform: translateX(3px);
+                    }
+
+                    .task-link {
+                        color: var(--sidebar-text);
+                        text-decoration: none;
+                        font-weight: 500;
+                        font-size: 0.8125rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        &:hover {
+                            color: #ffffff;
+                        }
+
+                        .task-badge {
+                            background: var(--color-primary);
+                            color: #ffffff;
+                            padding: 0.125rem 0.375rem;
+                            border-radius: 1rem;
+                            font-size: 0.625rem;
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsividade do sidebar
+@media (max-width: 768px) {
+    .main-sidebar {
+        transform: translateX(-280px);
+        transition: transform 0.3s ease;
+
+        &.sidebar-open {
+            transform: translateX(0);
+        }
+    }
+
+    .control-sidebar {
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+
+        &.control-sidebar-open {
+            transform: translateX(0);
+        }
+    }
+}
+
+// Animações especiais
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+// Efeitos especiais para itens importantes
+.nav-item {
+    &.important {
+        .nav-link {
+            background: linear-gradient(
+                135deg,
+                var(--color-danger),
+                var(--color-warning)
+            );
+            animation: pulse 2s ease-in-out infinite;
+
+            &:hover {
+                animation: none;
+            }
+        }
+    }
+
+    &.new {
+        .nav-link {
+            position: relative;
+
+            &::after {
+                content: "NOVO";
+                position: absolute;
+                top: 0.25rem;
+                right: 0.5rem;
+                background: var(--color-success);
+                color: #ffffff;
+                font-size: 0.5625rem;
+                font-weight: 700;
+                padding: 0.125rem 0.375rem;
+                border-radius: 1rem;
+                text-transform: uppercase;
+                animation: pulse 2s ease-in-out infinite;
+            }
+        }
+    }
+}

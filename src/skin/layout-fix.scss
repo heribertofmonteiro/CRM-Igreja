@@ -1,0 +1,596 @@
+// Correções de layout para ChurchCRM
+// Garante posicionamento correto de header, sidebar e content
+
+// Estrutura principal
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+// Header fixado no topo
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 57px;
+    z-index: 1031;
+    background-color: #3c8dbc !important;
+    border-bottom: 1px solid #367fa9 !important;
+}
+
+// Sidebar fixada à esquerda
+.main-sidebar {
+    position: fixed;
+    top: 57px;
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 57px);
+    z-index: 1030;
+    background-color: #222d32 !important;
+    overflow-y: auto;
+}
+
+// Conteúdo principal - Melhorado e Responsivo
+.content-wrapper {
+    margin-left: 250px;
+    margin-top: 57px;
+    min-height: calc(100vh - 57px);
+    background-color: #ecf0f5;
+    padding: 0;
+    width: calc(100% - 250px);
+    max-width: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+}
+
+// Header do conteúdo melhorado
+.content-header {
+    background-color: #fff;
+    padding: 15px 25px;
+    border-bottom: 1px solid #d2d6de;
+    margin-bottom: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+
+    h1 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+    }
+
+    .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 10px 0 0 0;
+        font-size: 13px;
+
+        li {
+            color: #6c757d;
+
+            a {
+                color: #3c8dbc;
+                text-decoration: none;
+
+                &:hover {
+                    color: #367fa9;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+// Área de conteúdo principal - LARGURA EXPANDIDA
+.content {
+    padding: 20px 25px;
+    max-width: none;
+    width: 100%;
+    overflow-x: hidden;
+
+    // Container fluido responsivo
+    .container-fluid {
+        padding: 0;
+        max-width: none;
+        width: 100%;
+    }
+
+    // Row com largura total
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+        width: calc(100% + 30px);
+
+        > div[class*="col-"] {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+    }
+
+    // Cards responsivos - LARGURA TOTAL
+    .card {
+        margin-bottom: 20px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: none;
+        width: 100%;
+
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            padding: 15px 20px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .card-body {
+            padding: 20px;
+            width: 100%;
+        }
+    }
+
+    // Small boxes responsivos - LARGURA EXPANDIDA
+    .small-box {
+        margin-bottom: 20px;
+        border-radius: 4px;
+        width: 100%;
+
+        .inner {
+            padding: 15px 20px;
+            width: 100%;
+
+            h3 {
+                font-size: 28px;
+                font-weight: bold;
+                margin: 0 0 5px 0;
+            }
+
+            p {
+                font-size: 14px;
+                margin: 0;
+                color: rgba(255, 255, 255, 0.9);
+            }
+        }
+
+        .icon {
+            font-size: 40px;
+            top: 15px;
+            right: 20px;
+        }
+    }
+
+    // Tabelas responsivas - LARGURA TOTAL
+    .table-responsive {
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        overflow-x: auto;
+
+        .table {
+            margin-bottom: 0;
+            width: 100%;
+            min-width: 800px;
+
+            th {
+                background-color: #f8f9fa;
+                border-bottom: 2px solid #dee2e6;
+                font-weight: 600;
+                color: #495057;
+                white-space: nowrap;
+            }
+
+            tbody tr {
+                &:hover {
+                    background-color: #f8f9fa;
+                }
+            }
+        }
+    }
+
+    // Formulários responsivos - LARGURA TOTAL
+    .form-group {
+        margin-bottom: 20px;
+        width: 100%;
+
+        label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control {
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            padding: 10px 15px;
+            font-size: 14px;
+            width: 100%;
+
+            &:focus {
+                border-color: #3c8dbc;
+                box-shadow: 0 0 0 0.2rem rgba(60, 141, 188, 0.25);
+            }
+        }
+    }
+
+    // Botões responsivos
+    .btn {
+        border-radius: 4px;
+        padding: 10px 20px;
+        font-weight: 500;
+        font-size: 14px;
+
+        &.btn-lg {
+            padding: 12px 25px;
+            font-size: 16px;
+        }
+
+        &.btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+    }
+}
+
+// Footer
+.main-footer {
+    margin-left: 250px;
+    padding: 15px;
+    background-color: #fff;
+    border-top: 1px solid #d2d6de;
+}
+
+// Quando sidebar está colapsada
+.sidebar-collapse {
+    .main-sidebar {
+        transform: translateX(-250px);
+        margin-left: -250px;
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .main-footer {
+        margin-left: 0;
+    }
+}
+
+// Responsividade avançada
+@media (max-width: 1200px) {
+    .content {
+        padding: 15px;
+
+        .small-box .inner h3 {
+            font-size: 24px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .content-wrapper {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+    }
+
+    .content {
+        padding: 15px;
+
+        .row {
+            margin-right: -10px;
+            margin-left: -10px;
+
+            > div[class*="col-"] {
+                padding-right: 10px;
+                padding-left: 10px;
+            }
+        }
+
+        .small-box .inner h3 {
+            font-size: 22px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+    }
+}
+
+// Tablets
+@media (max-width: 768px) {
+    .main-sidebar {
+        transform: translateX(-250px);
+        margin-left: -250px;
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .main-footer {
+        margin-left: 0;
+    }
+
+    .sidebar-open {
+        .main-sidebar {
+            transform: translateX(0);
+            margin-left: 0;
+        }
+    }
+
+    .content {
+        padding: 15px;
+
+        .content-header {
+            padding: 15px;
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+
+        .small-box {
+            margin-bottom: 15px;
+
+            .inner {
+                padding: 10px;
+
+                h3 {
+                    font-size: 20px;
+                }
+
+                p {
+                    font-size: 12px;
+                }
+            }
+
+            .icon {
+                font-size: 30px;
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+        .card {
+            margin-bottom: 15px;
+
+            .card-header {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            .card-body {
+                padding: 15px;
+            }
+        }
+
+        .btn {
+            padding: 8px 16px;
+            font-size: 13px;
+
+            &.btn-lg {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        .table-responsive {
+            font-size: 13px;
+        }
+    }
+}
+
+// Smartphones
+@media (max-width: 576px) {
+    .content {
+        padding: 15px 20px;
+        max-width: none;
+        width: 100%;
+
+        .content-header {
+            padding: 15px 20px;
+            text-align: center;
+
+            h1 {
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .breadcrumb {
+                text-align: center;
+                margin-top: 5px;
+            }
+        }
+
+        .container-fluid {
+            padding: 0;
+            max-width: none;
+            width: 100%;
+        }
+
+        .row {
+            margin-right: -10px;
+            margin-left: -10px;
+            width: calc(100% + 20px);
+
+            > div[class*="col-"] {
+                padding-right: 10px;
+                padding-left: 10px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .small-box {
+            margin-bottom: 15px;
+            text-align: center;
+            width: 100%;
+
+            .inner {
+                padding: 15px 20px;
+                width: 100%;
+                text-align: center;
+
+                h3 {
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
+
+                p {
+                    font-size: 12px;
+                }
+            }
+
+            .icon {
+                position: relative;
+                top: auto;
+                right: auto;
+                display: block;
+                margin: 0 auto 10px;
+                font-size: 25px;
+            }
+        }
+
+        .card {
+            margin-bottom: 15px;
+            width: 100%;
+
+            .card-header {
+                padding: 12px 20px;
+                font-size: 13px;
+                text-align: center;
+            }
+
+            .card-body {
+                padding: 15px 20px;
+                width: 100%;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+
+            label {
+                font-size: 13px;
+                margin-bottom: 5px;
+                display: block;
+            }
+
+            .form-control {
+                padding: 8px 15px;
+                font-size: 13px;
+                width: 100%;
+            }
+        }
+
+        .btn {
+            padding: 8px 15px;
+            font-size: 12px;
+            width: 100%;
+            margin-bottom: 5px;
+
+            &.btn-lg {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+
+            &.btn-sm {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
+
+        .table-responsive {
+            font-size: 12px;
+            border-radius: 0;
+            width: 100%;
+            overflow-x: auto;
+
+            .table {
+                width: 100%;
+                min-width: 600px;
+
+                th {
+                    padding: 8px 5px;
+                    font-size: 11px;
+                }
+
+                td {
+                    padding: 8px 5px;
+                }
+            }
+        }
+    }
+}
+
+// Dispositivos muito pequenos
+@media (max-width: 400px) {
+    .content {
+        padding: 10px 15px;
+        max-width: none;
+        width: 100%;
+
+        .content-header {
+            padding: 10px 15px;
+
+            h1 {
+                font-size: 16px;
+            }
+        }
+
+        .small-box .inner h3 {
+            font-size: 16px;
+        }
+
+        .card-header {
+            padding: 10px 15px;
+            font-size: 12px;
+        }
+
+        .btn {
+            font-size: 11px;
+            padding: 8px 12px;
+        }
+
+        .table-responsive {
+            font-size: 11px;
+            width: 100%;
+
+            .table {
+                width: 100%;
+                min-width: 500px;
+            }
+        }
+    }
+}
+
+// Garantir que o conteúdo não fique escondido
+.content {
+    padding: 15px;
+}
+
+// Corrigir z-index para evitar sobreposição
+.control-sidebar {
+    z-index: 1032;
+}
+
+// Ajustes para o wrapper principal
+body.hold-transition {
+    overflow-x: hidden;
+}
+
+// Corrigir animações
+.main-header,
+.main-sidebar,
+.content-wrapper,
+.main-footer {
+    transition: all 0.3s ease-in-out;
+}
